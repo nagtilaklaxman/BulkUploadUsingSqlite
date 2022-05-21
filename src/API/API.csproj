@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="MassTransit" Version="8.0.2" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.Map" Version="1.0.2" />
+    <PackageReference Include="Serilog.Sinks.SQLite" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="MassTransit" />
+    <None Remove="Extensions\" />
+    <None Remove="BackgroundServices\" />
+    <None Remove="Handlers\" />
+    <None Remove="Serilog" />
+    <None Remove="Serilog.Sinks.File" />
+    <None Remove="Serilog.Sinks.Console" />
+    <None Remove="Serilog.AspNetCore" />
+    <None Remove="Serilog.Sinks.Map" />
+    <None Remove="Lamar" />
+    <None Remove="Lamar.Microsoft.DependencyInjection" />
+    <None Remove="MassTransit.Lamar" />
+    <None Remove="MassTransit.Automatonymous.Lamar" />
+    <None Remove="Serilog.Sinks.SQLite" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="BackgroundServices\" />
+    <Folder Include="Consumers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
