@@ -8,8 +8,20 @@
 	<ItemGroup>
 		<None Remove="Events\" />
 		<None Remove="Microsoft.Extensions.DependencyInjection" />
+		<None Remove="interfaces\" />
+		<None Remove="interfaces\Repository\" />
+		<None Remove="Entities\" />
+		<None Remove="Entities\ESanjeevani\" />
+		<None Remove="Entities\ESanjeevani\InstituteMemberBulkModels\" />
+		<None Remove="ViewModels\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Events\" />
+		<Folder Include="interfaces\" />
+		<Folder Include="interfaces\Repository\" />
+		<Folder Include="Entities\" />
+		<Folder Include="Entities\ESanjeevani\" />
+		<Folder Include="Entities\ESanjeevani\InstituteMemberBulkModels\" />
+		<Folder Include="ViewModels\" />
 	</ItemGroup>
 </Project>

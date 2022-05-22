@@ -11,7 +11,7 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .Enrich.FromLogContext()
     .Enrich.With<LogFilePathEnricher>()
     .WriteTo.Map(LogFilePathEnricher.LogFilePathPropertyName,
-        (logFilePath, wt) => wt.File($"{logFilePath}"), sinkMapCountLimit: 1)); ;
+        (logFilePath, wt) => wt.File($"{logFilePath}"), sinkMapCountLimit: 1));
 #pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
 
 // Add services to the container.
