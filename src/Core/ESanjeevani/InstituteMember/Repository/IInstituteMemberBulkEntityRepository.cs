@@ -1,6 +1,6 @@
-﻿using Core.Entities.ESanjeevani.InstituteMemberBulkModels;
+﻿using Core.ESanjeevani.InstituteMember.Entities;
 
-namespace Core.interfaces.Repository
+namespace Core.ESanjeevani.InstituteMember.Repositories
 {
     public interface IInstituteMemberBulkEntityRepository : IRepository<InstituteMemberBulkEntity>
     {

@@ -1,4 +1,4 @@
-﻿namespace Core.Entities.ESanjeevani.InstituteMemberBulkModels
+﻿namespace Core.ESanjeevani.InstituteMember.Entities
 {
     /// <summary>
     /// Many to Many mapping table

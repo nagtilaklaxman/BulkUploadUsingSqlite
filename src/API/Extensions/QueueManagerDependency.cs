@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using API.BackgroundServices;
 using MassTransit;
 
 namespace API.Extensions
@@ -19,15 +18,6 @@ namespace API.Extensions
                     config.ConfigureEndpoints(context);
                 });
             });
-
-            return Task.CompletedTask;
-        }
-    }
-    public static class BackgroundServicesDependency
-    {
-        public static Task AddBackgroundServices(this IServiceCollection services)
-        {
-            services.AddHostedService<Worker>();
 
             return Task.CompletedTask;
         }

@@ -1,4 +1,4 @@
-﻿namespace Core.Entities.ESanjeevani.InstituteMemberBulkModels
+﻿namespace Core.ESanjeevani.InstituteMember.Entities
 {
     public class Login
     {

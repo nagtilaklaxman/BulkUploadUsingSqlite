@@ -1,4 +1,4 @@
-﻿namespace Core.interfaces.Repository
+﻿namespace Core.ESanjeevani.InstituteMember
 {
     public interface IRepository<T> where T : class
     {

@@ -13,7 +13,12 @@
 		<None Remove="Entities\" />
 		<None Remove="Entities\ESanjeevani\" />
 		<None Remove="Entities\ESanjeevani\InstituteMemberBulkModels\" />
-		<None Remove="ViewModels\" />
+		<None Remove="ESanjeevani\" />
+		<None Remove="ESanjeevani\InstituteMember\" />
+		<None Remove="ESanjeevani\InstituteMember\Entities\" />
+		<None Remove="ESanjeevani\InstituteMember\Events\" />
+		<None Remove="ESanjeevani\InstituteMember\Repository\" />
+		<None Remove="ESanjeevani\ViewModels\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Events\" />
@@ -22,6 +27,11 @@
 		<Folder Include="Entities\" />
 		<Folder Include="Entities\ESanjeevani\" />
 		<Folder Include="Entities\ESanjeevani\InstituteMemberBulkModels\" />
-		<Folder Include="ViewModels\" />
+		<Folder Include="ESanjeevani\" />
+		<Folder Include="ESanjeevani\InstituteMember\" />
+		<Folder Include="ESanjeevani\InstituteMember\Entities\" />
+		<Folder Include="ESanjeevani\InstituteMember\Events\" />
+		<Folder Include="ESanjeevani\InstituteMember\Repository\" />
+		<Folder Include="ESanjeevani\ViewModels\" />
 	</ItemGroup>
 </Project>
