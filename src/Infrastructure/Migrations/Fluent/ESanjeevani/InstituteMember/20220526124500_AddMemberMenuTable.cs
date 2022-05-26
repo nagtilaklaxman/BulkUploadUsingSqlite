@@ -3,6 +3,7 @@ using FluentMigrator;
 
 namespace Infrastructure.Migrations.Fluent.ESanjeevani.InstituteMember
 {
+    [Migration(20220526124500)]
     public class AddMemberMenuTable : Migration
     {
         public AddMemberMenuTable()

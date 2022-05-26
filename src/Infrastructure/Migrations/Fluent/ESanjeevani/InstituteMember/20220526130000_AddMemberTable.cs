@@ -3,6 +3,7 @@ using FluentMigrator;
 
 namespace Infrastructure.Migrations.Fluent.ESanjeevani.InstituteMember
 {
+    [Migration(20220526130000)]
     public class AddMemberTable : Migration
     {
         public AddMemberTable()
@@ -26,7 +27,6 @@ namespace Infrastructure.Migrations.Fluent.ESanjeevani.InstituteMember
               .WithColumn(nameof(member.Id)).AsInt64().PrimaryKey().Identity()
 
               .WithColumn(nameof(member.AddressLine1)).AsString()
-              .WithColumn(nameof(member.AddressLine2)).AsString()
               .WithColumn(nameof(member.AddressLine2)).AsString()
               .WithColumn(nameof(member.Age)).AsString()
               .WithColumn(nameof(member.AgeType)).AsString()
@@ -72,6 +72,7 @@ namespace Infrastructure.Migrations.Fluent.ESanjeevani.InstituteMember
               .WithColumn(nameof(member.StatusId)).AsString()
               .WithColumn(nameof(member.SourceId)).AsString()
               .WithColumn(nameof(member.StateId)).AsString()
+
 
               .WithColumn("LocalDbRecordId").AsInt64();
         }

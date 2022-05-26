@@ -1,6 +1,6 @@
 ﻿using API;
 using API.Extensions;
-
+using Infrastructure;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +26,7 @@ builder.Services.AddSingleton<ILogFilePathLoder, LogFilePathLoader>();
 builder.Services.AddQueueManager();
 builder.Services.AddBackgroundServices();
 
+builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 

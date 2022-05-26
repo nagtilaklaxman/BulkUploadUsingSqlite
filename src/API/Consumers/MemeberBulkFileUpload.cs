@@ -1,10 +1,11 @@
 ﻿using System;
-using Core.Events;
+using Core.ESanjeevani.InstituteMember.Events;
+using FluentMigrator.Runner;
 using MassTransit;
 
 namespace API.Consumers
 {
-    public class MemeberBulkFileUpload : IConsumer<MemberBulkFileUploadedEvent>
+    public class MemeberBulkFileUpload : IConsumer<FileUploadedEvent>
     {
         readonly ILogger<MemeberBulkFileUpload> _logger;
         private readonly ILogFilePathLoder logFilePathLoder;
@@ -15,7 +16,7 @@ namespace API.Consumers
             this.logFilePathLoder = logFilePathLoder;
         }
 
-        public async Task Consume(ConsumeContext<MemberBulkFileUploadedEvent> context)
+        public async Task Consume(ConsumeContext<FileUploadedEvent> context)
         {
             await logFilePathLoder.SetLogFilePath($"{context.Message.SessionId}/logFile.log");
             _logger.LogInformation("Received File: {Text} and  SessionId : {SessionId} ", context.Message.FileName, context.Message.SessionId);

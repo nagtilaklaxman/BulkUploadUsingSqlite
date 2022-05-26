@@ -3,6 +3,7 @@ using FluentMigrator;
 
 namespace Infrastructure.Migrations.Fluent.ESanjeevani.InstituteMember
 {
+    [Migration(20220526121800)]
     public class AddAuditTrailTable : Migration
     {
         public AddAuditTrailTable()

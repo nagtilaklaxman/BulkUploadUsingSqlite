@@ -4,6 +4,7 @@ using FluentMigrator;
 
 namespace Infrastructure.Migrations.Fluent.ESanjeevani.InstituteMember
 {
+    [Migration(20220526123000)]
     public class AddInstituteTable : Migration
     {
         public AddInstituteTable()

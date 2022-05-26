@@ -8,6 +8,7 @@ namespace API.BackgroundServices
     {
         readonly IBus _bus;
 
+
         public Worker(IBus bus)
         {
             _bus = bus;
@@ -18,9 +19,16 @@ namespace API.BackgroundServices
             while (!stoppingToken.IsCancellationRequested)
             {
                 var sessionId = Guid.NewGuid();
-                await _bus.Publish(new FileUploadedEvent { FileName = "test.xlsx", Path = $"{sessionId}/test.xlsx", SessionId = sessionId.ToString() }, stoppingToken);
+                try
+                {
+                    //await _bus.Publish(new FileUploadedEvent { FileName = "test.xlsx", Path = $"{sessionId}/test.xlsx", SessionId = sessionId.ToString() }, stoppingToken);
 
-                await Task.Delay(1000, stoppingToken);
+                    await Task.Delay(30000, stoppingToken);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
             }
         }
     }

@@ -3,6 +3,7 @@ using FluentMigrator;
 
 namespace Infrastructure.Migrations.Fluent.ESanjeevani.InstituteMember
 {
+    [Migration(20220526122500)]
     public class AddInstituteMemberBulkEntityTable : Migration
     {
         public AddInstituteMemberBulkEntityTable()
