@@ -1,4 +1,6 @@
-﻿namespace Core.ESanjeevani.InstituteMember.Entities
+﻿using Core.Entities;
+
+namespace Core.ESanjeevani.InstituteMember.Entities
 {
     public class InstituteMemberBulkEntity : BulkEntity
     {

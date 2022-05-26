@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Events;
+using Core.ESanjeevani.InstituteMember.Events;
 using MassTransit;
 
 namespace API.BackgroundServices
@@ -18,7 +18,7 @@ namespace API.BackgroundServices
             while (!stoppingToken.IsCancellationRequested)
             {
                 var sessionId = Guid.NewGuid();
-                await _bus.Publish(new MemberBulkFileUploadedEvent { FileName = "test.xlsx", Path = $"{sessionId}/test.xlsx", SessionId = sessionId.ToString() }, stoppingToken);
+                await _bus.Publish(new FileUploadedEvent { FileName = "test.xlsx", Path = $"{sessionId}/test.xlsx", SessionId = sessionId.ToString() }, stoppingToken);
 
                 await Task.Delay(1000, stoppingToken);
             }
