@@ -26,7 +26,7 @@ namespace Infrastructure.contexts
             {
                 foreach (var migration in _instituteMemberMigrations)
                 {
-                    var sql = migration.GetMigrationSql();
+                    var sql = migration.MigrationSql;
                     var cmd = _dbConnection.CreateCommand();
                     cmd.CommandText = sql;
                     cmd.ExecuteNonQuery();
@@ -48,7 +48,7 @@ namespace Infrastructure.contexts
 
         public bool SetDbPath(string folderPath, string sessionId)
         {
-            var directory = $"{folderPath}/{ sessionId}";
+            var directory = $"{folderPath}/{sessionId}";
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);

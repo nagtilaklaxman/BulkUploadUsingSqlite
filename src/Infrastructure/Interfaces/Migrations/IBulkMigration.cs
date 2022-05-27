@@ -3,7 +3,7 @@ namespace Infrastructure.Interfaces.Migrations
 {
     public interface IBulkMigration
     {
-        string GetMigrationSql();
+        string MigrationSql { get; }
     }
     public interface IInstituteMemberMigration : IBulkMigration
     {
