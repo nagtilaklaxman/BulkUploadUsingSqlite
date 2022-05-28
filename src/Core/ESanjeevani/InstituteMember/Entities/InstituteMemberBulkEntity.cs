@@ -31,6 +31,8 @@ namespace Core.ESanjeevani.InstituteMember.Entities
 
         public string HFPIN { get; set; }
 
+        public string HFEmail { get; set; }
+
         /// User Data
 
 

@@ -24,6 +24,7 @@ namespace Infrastructure.Migrations.Scripts.ESanjeevani.InstituteMember
                     HFDistrictId          INTEGER  DEFAULT (0),
                     HFName                TEXT,
                     HFPhone               TEXT,
+                    HFEmail               TEXT,
                     HFPIN                 TEXT,
                     HFShortName           TEXT     NOT NULL,
                     HFStateId             INTEGER  NOT NULL

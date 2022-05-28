@@ -1,7 +1,7 @@
 ﻿using System;
 using Core.Entities;
 
-namespace Core.ViewModels
+namespace Core.ESanjeevani.InstituteMember.ViewModels
 {
     public class InstituteMemberBulkEntityVM
     {

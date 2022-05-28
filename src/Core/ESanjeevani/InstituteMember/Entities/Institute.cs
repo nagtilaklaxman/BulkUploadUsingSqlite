@@ -26,6 +26,7 @@
         /// mapping with member table
         /// </summary>
         public IList<InstitutionMember> Members { get; set; }
+
     }
 }
 
