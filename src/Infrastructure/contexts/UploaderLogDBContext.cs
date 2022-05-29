@@ -1,8 +1,7 @@
 ﻿using System.Data;
 using Infrastructure.Interfaces;
-using Infrastructure.Interfaces.Migrations;
 using Microsoft.Data.Sqlite;
-using Dapper;
+using Infrastructure.ESanjeevani.InstituteMember.Migrations;
 
 namespace Infrastructure.contexts
 {

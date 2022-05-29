@@ -5,14 +5,14 @@ using Infrastructure.Interfaces.FileHelper;
 
 namespace Infrastructure.FileHelper
 {
-    public class CsvHelper<T> : ICsvHelper<T> where T : new()
+    public class CsvHelper<T> : BaseFileHelper<T>, ICsvHelper<T> where T : new()
     {
         public CsvHelper()
         {
 
         }
 
-        public IList<T> Read(string filePath)
+        public override IList<T> Read(string filePath)
         {
             var records = new List<T>();
             using (var reader = new StreamReader(filePath))
@@ -25,7 +25,7 @@ namespace Infrastructure.FileHelper
             return records;
         }
 
-        public bool Write(IList<T> data, string filePath)
+        public override bool Write(IList<T> data, string filePath)
         {
             using (var writer = new StreamWriter(filePath))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))

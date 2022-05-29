@@ -1,6 +1,6 @@
 ﻿using Infrastructure.Interfaces.Migrations;
 
-namespace Infrastructure.Migrations.Scripts.ESanjeevani.InstituteMember
+namespace Infrastructure.ESanjeevani.InstituteMember.Migrations
 {
     public class AddInstitutionMemberTable : IInstituteMemberMigration
     {

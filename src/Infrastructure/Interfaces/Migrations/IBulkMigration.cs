@@ -5,9 +5,5 @@ namespace Infrastructure.Interfaces.Migrations
     {
         string MigrationSql { get; }
     }
-    public interface IInstituteMemberMigration : IBulkMigration
-    {
-
-    }
 }
 

@@ -1,13 +1,10 @@
-﻿using System;
-using FluentMigrator.Runner;
-using FluentMigrator.Runner.Initialization;
+﻿using FluentMigrator.Runner.Initialization;
 using Infrastructure.contexts;
 using Infrastructure.FileHelper;
 using Infrastructure.Interfaces;
 using Infrastructure.Interfaces.FileHelper;
 using Infrastructure.Interfaces.Migrations;
-using Infrastructure.Migrations.Scripts.ESanjeevani.InstituteMember;
-using Microsoft.Extensions.Configuration;
+using Infrastructure.ESanjeevani.InstituteMember.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure
@@ -16,6 +13,7 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+
             services.AddScoped(typeof(ICsvHelper<>), typeof(CsvHelper<>));
             services.AddScoped(typeof(IExcelHelper<>), typeof(ExcelHelper<>));
 

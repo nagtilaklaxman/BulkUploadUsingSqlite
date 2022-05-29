@@ -4,9 +4,9 @@ using Infrastructure.Interfaces.FileHelper;
 
 namespace Infrastructure.FileHelper
 {
-    public class ExcelHelper<T> : IExcelHelper<T> where T : new()
+    public class ExcelHelper<T> : BaseFileHelper<T>, IExcelHelper<T> where T : new()
     {
-        public IList<T> Read(string filePath)
+        public override IList<T> Read(string filePath)
         {
             using var reader = new CsvReader(new ExcelParser(filePath));
             var temp = reader.GetRecords<T>();
@@ -14,7 +14,7 @@ namespace Infrastructure.FileHelper
             return records;
         }
 
-        public bool Write(IList<T> data, string filePath)
+        public override bool Write(IList<T> data, string filePath)
         {
             using (var writer = new ExcelWriter(filePath))
             {

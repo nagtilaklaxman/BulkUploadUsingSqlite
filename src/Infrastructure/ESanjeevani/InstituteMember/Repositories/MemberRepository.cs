@@ -1,7 +1,7 @@
 ﻿using Core.ESanjeevani.InstituteMember.Entities;
 using Core.ESanjeevani.InstituteMember.Repositories;
 
-namespace Infrastructure.Repositories.ESanjeevani.InstituteMember
+namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
 {
     public class MemberRepository : IMemberRepository
     {
