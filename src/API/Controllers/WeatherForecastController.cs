@@ -26,10 +26,10 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public async Task<IEnumerable<WeatherForecast>> Get()
     {
-        var guid = Guid.NewGuid();
-        uploaderContext.SetDbPath("logs", Convert.ToString(guid));
+        //var guid = Guid.NewGuid();
+        //uploaderContext.SetDbPath("logs", Convert.ToString(guid));
 
-        await uploaderContext.ApplyMigration();
+        //await uploaderContext.ApplyMigration();
 
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {

@@ -31,11 +31,17 @@
     <None Remove="MassTransit.Lamar" />
     <None Remove="MassTransit.Automatonymous.Lamar" />
     <None Remove="Serilog.Sinks.SQLite" />
+    <None Remove="Models\" />
+    <None Remove="Development\" />
+    <None Remove="Development\unsafe_uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="BackgroundServices\" />
     <Folder Include="Consumers\" />
+    <Folder Include="Models\" />
+    <Folder Include="Development\" />
+    <Folder Include="Development\unsafe_uploads\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

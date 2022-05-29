@@ -14,6 +14,18 @@ builder.Host.UseSerilog((ctx, lc) => lc
         (logFilePath, wt) => wt.File($"{logFilePath}"), sinkMapCountLimit: 1));
 #pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
 
+var allowAllOriginsPolicy = "_allowAllOriginsPolicy";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: allowAllOriginsPolicy,
+                      policy =>
+                      {
+                          policy.AllowAnyHeader();
+                          policy.AllowAnyOrigin();
+                          policy.AllowAnyMethod();
+                      });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -36,7 +48,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors(allowAllOriginsPolicy);
 app.UseAuthorization();
 
 app.MapControllers();
