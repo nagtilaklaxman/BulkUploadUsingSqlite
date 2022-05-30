@@ -20,6 +20,7 @@
 		<None Remove="ESanjeevani\InstituteMember\Services\" />
 		<None Remove="ESanjeevani\InstituteMember\Validations\" />
 		<None Remove="FluentValidation" />
+		<None Remove="CSharpFunctionalExtensions" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Events\" />
@@ -37,5 +38,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="FluentValidation" Version="11.0.2" />
+	  <PackageReference Include="CSharpFunctionalExtensions" Version="2.29.1" />
 	</ItemGroup>
 </Project>

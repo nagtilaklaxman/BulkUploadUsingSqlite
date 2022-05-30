@@ -13,6 +13,16 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            services.Scan(scan => scan
+            // We start out with all types in the assembly of ITransientService
+            .FromCallingAssembly()
+            .AddClasses(classes => classes.AssignableTo(typeof(IFileHelper<>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime()
+            .AddClasses(classes => classes.AssignableTo<IInstituteMemberMigration>())
+            .As<IInstituteMemberMigration>()
+            .WithScopedLifetime()
+            );
 
             services.AddScoped(typeof(ICsvHelper<>), typeof(CsvHelper<>));
             services.AddScoped(typeof(IExcelHelper<>), typeof(ExcelHelper<>));
@@ -20,7 +30,7 @@ namespace Infrastructure
             services.AddScoped<IUploaderLogDBConnectionStringModifier, UploaderLogDBConnectionStringReader>();
             services.AddScoped<IConnectionStringReader, UploaderLogDBConnectionStringReader>();
 
-            services.AddScoped<IInstituteMemberMigration, AddAuditTrailTable>();
+            /* services.AddScoped<IInstituteMemberMigration, AddAuditTrailTable>();
             services.AddScoped<IInstituteMemberMigration, AddBulkEntityValidationTable>();
             services.AddScoped<IInstituteMemberMigration, AddInstituteMemberBulkEntityTable>();
             services.AddScoped<IInstituteMemberMigration, AddInstituteTable>();
@@ -29,6 +39,7 @@ namespace Infrastructure
             services.AddScoped<IInstituteMemberMigration, AddMemberMenuTable>();
             services.AddScoped<IInstituteMemberMigration, AddMemberSlotTable>();
             services.AddScoped<IInstituteMemberMigration, AddMemberTable>();
+            */
 
             services.AddScoped<IUploaderLogDBContext, UploaderLogDBContext>();
 

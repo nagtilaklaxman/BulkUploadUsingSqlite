@@ -2,7 +2,8 @@
 @using System.Linq
 @using System.Net.Http.Headers
 @using Microsoft.Extensions.Logging
-@inject HttpClient Http
+@using BlazorWebAssemblyClient.Services
+@inject IHttpApiService Http
 @inject ILogger<FileUpload> Logger
 <div class="card mb-2">
     <div class="card-header">
@@ -45,7 +46,7 @@
                                 File: @file.Name
                                 <br>
                                 @if (IsFileUpload(uploadResults, file.Name, Logger,
-                                       out var result))
+                                 out var result))
                                 {
                                     <span>
                                         Stored File Name: @result.StoredFileName
@@ -103,7 +104,7 @@
 
                     content.Add(
                         content: fileContent,
-                        name: "\"files\"",
+                        name: "\"file\"",
                         fileName: file.Name);
 
                     upload = true;
@@ -127,14 +128,11 @@
 
         if (upload)
         {
-            var response = await Http.PostAsync("Filesave", content);
+            var response = await Http.UploadFile<FileUploadResult>("Filesave", content);
 
-            var newUploadResults = await response.Content
-                .ReadFromJsonAsync<IList<FileUploadResult>>();
-
-            if (newUploadResults is not null)
+            if (response is not null)
             {
-                uploadResults = uploadResults.Concat(newUploadResults).ToList();
+                uploadResults.Add(response);
             }
         }
 

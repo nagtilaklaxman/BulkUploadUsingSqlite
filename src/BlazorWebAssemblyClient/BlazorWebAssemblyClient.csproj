@@ -10,13 +10,29 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.5" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="CurrieTechnologies.Razor.SweetAlert2" Version="5.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Microsoft.Extensions.Configuration" />
     <None Remove="models\" />
+    <None Remove="Services\" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="CurrieTechnologies.Razor.SweetAlert2" />
+    <None Remove="Microsoft.AspNetCore.Components.WebAssembly.Authentication" />
+    <None Remove="Microsoft.Extensions.Http" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="models\" />
+    <Folder Include="Services\" />
+    <Folder Include="wwwroot\Plugins\" />
+    <Folder Include="wwwroot\Plugins\sweetAlert2\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\Plugins\" />
+    <Content Remove="wwwroot\Plugins\sweetAlert2\" />
   </ItemGroup>
 </Project>

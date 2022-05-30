@@ -1,17 +1,23 @@
-﻿using Infrastructure.FileHelper;
+﻿using Core.Entities;
+using CSharpFunctionalExtensions;
+using Infrastructure.FileHelper;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.FileHelper
 {
     public class InstituteMemberExcelHelper : ExcelHelper<InstituteMemberExcelEntity>
     {
         long maxFileSize = 1024 * 1024 * 15;
-        public override Task<bool> SaveAsync(Stream stream, string filePath)
+        public async override Task<Result<bool, BulkError>> SaveAsync(Stream stream, string filePath)
         {
+            if (stream.Length == 0)
+            {
+                return Errors.File.Empty();
+            }
             if (stream.Length > maxFileSize)
             {
-                return Task.FromResult(false);
+                return Errors.File.TooLarge(maxFileSize.ToString());
             }
-            return base.SaveAsync(stream, filePath);
+            return await base.SaveAsync(stream, filePath);
         }
         public override IList<InstituteMemberExcelEntity> Read(string filePath)
         {

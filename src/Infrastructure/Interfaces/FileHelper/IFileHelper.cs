@@ -1,10 +1,13 @@
 ﻿using System;
+using Core.Entities;
+using CSharpFunctionalExtensions;
+
 namespace Infrastructure.Interfaces.FileHelper
 {
 
     public interface IFileHelper<T> where T : new()
     {
-        public Task<bool> SaveAsync(Stream stream, string filePath);
+        public Task<Result<bool, BulkError>> SaveAsync(Stream stream, string filePath);
         public bool Write(IList<T> data, string filePath);
         public IList<T> Read(string filePath);
     }

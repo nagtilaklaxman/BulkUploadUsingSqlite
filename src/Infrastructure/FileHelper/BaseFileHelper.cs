@@ -1,4 +1,6 @@
-﻿using Infrastructure.Interfaces.FileHelper;
+﻿using Core.Entities;
+using CSharpFunctionalExtensions;
+using Infrastructure.Interfaces.FileHelper;
 
 namespace Infrastructure.FileHelper
 {
@@ -7,11 +9,12 @@ namespace Infrastructure.FileHelper
         public abstract IList<T> Read(string filePath);
 
 
-        public async virtual Task<bool> SaveAsync(Stream stream, string filePath)
+        public async virtual Task<Result<bool, BulkError>> SaveAsync(Stream stream, string filePath)
         {
             EnsureFolder(filePath);
             await using FileStream fs = new(filePath, FileMode.Create);
             await stream.CopyToAsync(fs);
+
             return true;
         }
 
@@ -30,6 +33,7 @@ namespace Infrastructure.FileHelper
         }
 
         public abstract bool Write(IList<T> data, string filePath);
+
 
     }
 }
