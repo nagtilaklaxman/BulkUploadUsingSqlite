@@ -30,6 +30,9 @@
     <None Remove="ESanjeevani\InstituteMember\Migrations\" />
     <None Remove="ESanjeevani\InstituteMember\FileHelper\" />
     <None Remove="Scrutor" />
+    <None Remove="ESanjeevani\InstituteMember\Jobs\" />
+    <None Remove="Interfaces\Jobs\" />
+    <None Remove="Jobs\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
@@ -54,6 +57,9 @@
     <Folder Include="ESanjeevani\InstituteMember\Repositories\" />
     <Folder Include="ESanjeevani\InstituteMember\Migrations\" />
     <Folder Include="ESanjeevani\InstituteMember\FileHelper\" />
+    <Folder Include="ESanjeevani\InstituteMember\Jobs\" />
+    <Folder Include="Interfaces\Jobs\" />
+    <Folder Include="Jobs\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />

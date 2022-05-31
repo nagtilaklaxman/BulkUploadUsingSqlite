@@ -29,6 +29,8 @@ public class FilesaveController : ApplicationController
 
         var sessionId = Guid.NewGuid().ToString();
 
+        await Task.Delay(2000);
+
         var uploadResult = new FileUploadResult();
         var untrustedFileName = file.FileName;
         uploadResult.FileName = untrustedFileName;
