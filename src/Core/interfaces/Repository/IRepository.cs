@@ -1,4 +1,6 @@
-﻿namespace Core.ESanjeevani.InstituteMember
+﻿using Core.Entities;
+
+namespace Core.interfaces.Repository
 {
     public interface IRepository<T> where T : class
     {
@@ -7,7 +9,7 @@
         Task<int> AddAsync(T entity);
         Task<int> UpdateAsync(T entity);
         Task<int> DeleteAsync(int id);
-        Task<int> AddRangeAsync(IList<T> entity);
+        Task<int> AddRangeAsync(IList<T> entities);
         Task<int> DeleteRangeAsync(IList<int> ids);
     }
 }

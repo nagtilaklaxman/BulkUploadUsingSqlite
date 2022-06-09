@@ -10,7 +10,7 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<int> AddRangeAsync(IList<Member> entity)
+        public Task<int> AddRangeAsync(IList<Member> entities)
         {
             throw new NotImplementedException();
         }
@@ -53,7 +53,7 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<int> AddRangeAsync(IList<Member> entity)
+        public Task<int> AddRangeAsync(IList<Member> entities)
         {
             throw new NotImplementedException();
         }
@@ -83,6 +83,5 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
             throw new NotImplementedException();
         }
     }
-
 }
 

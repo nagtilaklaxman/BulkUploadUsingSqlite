@@ -1,7 +1,4 @@
-﻿using FluentMigrator.Runner;
-using Infrastructure;
-using Infrastructure.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
@@ -13,12 +10,10 @@ public class WeatherForecastController : ApplicationController
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
-    private readonly IUploaderLogDBContext uploaderContext;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, IUploaderLogDBContext uploaderContext)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger)
     {
-        _logger = logger;
-        this.uploaderContext = uploaderContext;
+        _logger = logger; 
     }
 
     [HttpGet(Name = "GetWeatherForecast")]

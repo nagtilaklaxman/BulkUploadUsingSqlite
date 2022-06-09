@@ -14,10 +14,10 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Migrations
                     Id                INTEGER  NOT NULL  DEFAULT (0), 
                     AddressLine1      TEXT     ,
                     AddressLine2      TEXT     ,
-                    CityId            INTEGER  NOT NULL, DEFAULT (0),
-                    CountryId         TEXT     NOT NULL, DEFAULT (0),
+                    CityId            INTEGER  NOT NULL DEFAULT (0),
+                    CountryId         TEXT     NOT NULL DEFAULT (0),
                     CreatedDate       DATETIME ,
-                    DistrictId        TEXT     NOT NULL, DEFAULT (0),
+                    DistrictId        TEXT     NOT NULL DEFAULT (0),
                     Email             TEXT     ,
                     Fax               TEXT     ,
                     ImagePath         TEXT     ,
@@ -27,7 +27,7 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Migrations
                     Name              TEXT     ,
                     PinCode           TEXT     ,
                     SourceId          TEXT     ,
-                    StateId           TEXT     , DEFAULT (0),
+                    StateId           TEXT     DEFAULT (0),
                     StatusIdpublic    TEXT     ,
                     BulkEntityId      INTEGER  NOT NULL
                 );";

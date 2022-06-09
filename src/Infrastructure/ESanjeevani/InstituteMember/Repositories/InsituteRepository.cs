@@ -1,5 +1,6 @@
 ﻿using Core.ESanjeevani.InstituteMember.Entities;
 using Core.ESanjeevani.InstituteMember.Repositories;
+using Core.ESanjeevani.InstituteMember.Repository;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
 {
@@ -10,7 +11,7 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<int> AddRangeAsync(IList<Institute> entity)
+        public Task<int> AddRangeAsync(IList<Institute> entities)
         {
             throw new NotImplementedException();
         }
@@ -54,7 +55,7 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<int> AddRangeAsync(IList<Institute> entity)
+        public Task<int> AddRangeAsync(IList<Institute> entities)
         {
             throw new NotImplementedException();
         }

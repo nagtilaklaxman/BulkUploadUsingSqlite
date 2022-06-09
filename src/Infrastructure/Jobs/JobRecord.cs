@@ -1,5 +1,4 @@
-﻿using System;
-using Infrastructure.Interfaces.Jobs;
+﻿using Infrastructure.Interfaces.Jobs;
 
 namespace Infrastructure.Jobs
 {
@@ -7,10 +6,12 @@ namespace Infrastructure.Jobs
     {
         public int Id { get; set; }
         public string Description { get; set; }
+        public string SessionId { get; set; }  
         public string ModuleName { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-        public DateTime ModifiedDate { get; set; }
-        public string JsonData { get; set; } // this is jsonData of IJobData<T>
+        public DateTime ModifiedDate { get; set; } = DateTime.UtcNow;
+        public string JobData { get; set; } // this is jsonData of IJobData<T>
+        public bool IsCompleted { get; set; } = false;
     }
     public class JobProcessor : IJobProcessor
     {

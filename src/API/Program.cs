@@ -6,6 +6,7 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((ctx, lc) => lc
+    .MinimumLevel.Information()
     .WriteTo.Console()
     .WriteTo.SQLite($"{Environment.CurrentDirectory}/logs/logs.db")
     .Enrich.FromLogContext()
@@ -34,7 +35,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<LogFilePathEnricher>();
-builder.Services.AddSingleton<ILogFilePathLoder, LogFilePathLoader>();
 builder.Services.AddQueueManager();
 builder.Services.AddBackgroundServices();
 

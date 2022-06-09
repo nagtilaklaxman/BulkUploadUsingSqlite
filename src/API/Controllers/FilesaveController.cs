@@ -2,8 +2,11 @@
 using API.Controllers;
 using API.Models;
 using Core.Entities;
+using Core.ESanjeevani.InstituteMember.Events;
 using Infrastructure.ESanjeevani.InstituteMember.FileHelper;
+using Infrastructure.ESanjeevani.InstituteMember.Migrations;
 using Infrastructure.Interfaces.FileHelper;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,13 +16,17 @@ public class FilesaveController : ApplicationController
     private readonly IWebHostEnvironment env;
     private readonly ILogger<FilesaveController> logger;
     private readonly IFileHelper<InstituteMemberExcelEntity> _fileHelper;
+    private readonly IBus _bus;
+    private readonly IInstituteMemberSession _session;
 
     public FilesaveController(IWebHostEnvironment env,
-        ILogger<FilesaveController> logger, IFileHelper<InstituteMemberExcelEntity> fileHelper)
+        ILogger<FilesaveController> logger, IFileHelper<InstituteMemberExcelEntity> fileHelper, IBus bus,IInstituteMemberSession session)
     {
         this.env = env;
         this.logger = logger;
         _fileHelper = fileHelper;
+        _bus = bus;
+        _session = session;
     }
 
     [HttpPost]
@@ -51,13 +58,21 @@ public class FilesaveController : ApplicationController
                 {
                     return Error(result.Error);
                 }
-                logger.LogInformation("{FileName} saved at {Path}",
-                      trustedFileNameForDisplay, path);
-
                 uploadResult.Uploaded = true;
-                return Ok(uploadResult);
-            };
+            }
+            logger.LogInformation("{FileName} saved at {Path}",
+                      trustedFileNameForDisplay, path);
+            
+            _session.SessionId = sessionId;
+            var message = new FileUploadedEvent()
+            {
+                FileName = uploadResult.FileName,
+                Path = path,
+                SessionId = sessionId
 
+            };
+            await _bus.Publish<FileUploadedEvent>(message); 
+            return Ok(uploadResult);
         }
         catch (IOException ex)
         {
@@ -65,7 +80,6 @@ public class FilesaveController : ApplicationController
                 trustedFileNameForDisplay, ex.Message);
             return Error(Errors.General.InternalServerError(ex.Message));
         }
-
     }
 }
 

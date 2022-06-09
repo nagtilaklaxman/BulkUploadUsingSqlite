@@ -7,48 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Microsoft.Extensions.DependencyInjection" />
-    <None Remove="Interfaces\" />
-    <None Remove="contexts\" />
-    <None Remove="Interfaces\Contexts\" />
-    <None Remove="Interfaces\FileHelper\" />
-    <None Remove="FileHelpers\" />
-    <None Remove="CsvHelper" />
-    <None Remove="CsvHelper.Excel" />
-    <None Remove="CsvHelper.Excel.Core" />
-    <None Remove="FluentMigrator" />
-    <None Remove="FluentMigrator.Runner" />
-    <None Remove="FluentMigrator.Runner.SQLite" />
-    <None Remove="Microsoft.Data.Sqlite" />
-    <None Remove="Microsoft.Data.Sqlite.Core" />
-    <None Remove="Dapper" />
-    <None Remove="Interfaces\Migrations\" />
-    <None Remove="SQLitePCLRaw.lib.e_sqlite3" />
-    <None Remove="ESanjeevani\" />
-    <None Remove="ESanjeevani\InstituteMember\" />
-    <None Remove="ESanjeevani\InstituteMember\Repositories\" />
-    <None Remove="ESanjeevani\InstituteMember\Migrations\" />
-    <None Remove="ESanjeevani\InstituteMember\FileHelper\" />
-    <None Remove="Scrutor" />
-    <None Remove="ESanjeevani\InstituteMember\Jobs\" />
-    <None Remove="Interfaces\Jobs\" />
-    <None Remove="Jobs\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="CsvHelper" Version="27.2.1" />
     <PackageReference Include="CsvHelper.Excel.Core" Version="27.2.1" />
-    <PackageReference Include="FluentMigrator" Version="3.3.2" />
-    <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
-    <PackageReference Include="FluentMigrator.Runner.SQLite" Version="3.3.2" />
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="Scrutor" Version="4.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
-    <Folder Include="contexts\" />
-    <Folder Include="Interfaces\Contexts\" />
     <Folder Include="Interfaces\FileHelper\" />
     <Folder Include="FileHelper\" />
     <Folder Include="Interfaces\Migrations\" />
