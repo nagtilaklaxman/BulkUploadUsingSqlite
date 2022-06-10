@@ -3,6 +3,8 @@ using System.Data;
 using Core.ESanjeevani.InstituteMember.Entities;
 using Core.ESanjeevani.InstituteMember.Repository;
 using Dapper;
+using Infrastructure.ESanjeevani.InstituteMember.Jobs;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
 {
@@ -10,9 +12,10 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
     {
         private readonly IDbConnection _connection;
 
-        public InstituteMemberBulkEntityRepository(IDbConnection connection)
+        public InstituteMemberBulkEntityRepository(IOptionsMonitor<InstituteMemberOptions> options)
         {
-            _connection = connection;
+            Console.WriteLine("options value : {0}",options.CurrentValue.Connection?.ConnectionString);
+            _connection = options.CurrentValue.Connection;
         }
         public async Task<int> AddAsync(InstituteMemberBulkEntity entity)
         {
@@ -190,6 +193,13 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
                                         WHERE {nameof(entity.Id)} = {entity.Id};";
 
             return await _connection.ExecuteAsync(sql);
+        }
+
+        public string Connectionstring {
+            get
+            {
+                return _connection.ConnectionString;
+            }
         }
     }
 }

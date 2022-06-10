@@ -1,4 +1,6 @@
 ﻿using Core.ESanjeevani.InstituteMember.Repository;
+using Core.interfaces.Repository;
+using Infrastructure.Jobs;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.Jobs

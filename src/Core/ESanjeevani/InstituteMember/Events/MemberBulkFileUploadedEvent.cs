@@ -7,17 +7,22 @@ namespace Core.ESanjeevani.InstituteMember.Events
         public string FileName { get; set; }
         public string Path { get; set; }
     }
-    public class LogDBCreatedEvent
+    public class AddDataFromFileCommand
     {
         public string SessionId { get; set; }
-        public string DbName { get; set; }
-        public string Path { get; set; }
+        public string FilePath { get; set; }
     }
-    public class DataAddedInLocalDBEvent
+
+    public class ValidateDataCommand
     {
         public string SessionId { get; set; }
     }
-    public class ValidatedEvent
+    
+    public class DataAddedEvent
+    {
+        public string SessionId { get; set; }
+    }
+    public class RecordValidatedEvent
     {
         public string SessionId { get; set; }
         public int RecordId { get; set; }
@@ -28,34 +33,33 @@ namespace Core.ESanjeevani.InstituteMember.Events
         public string PropertyName { get; set; }
         public string ErrorMessage { get; set; } = string.Empty;
     }
-    public class DataModifiedInLocalDBEvent
+    public class DataModifiedEvent
     {
         public string SessionId { get; set; }
-        public IList<string> RecordId { get; set; }
+        public IReadOnlyList<int> RecordIds { get; set; }
     }
-    public class DataDeletedInLocalDBEvent
+    public class DataDeletedEvent
     {
         public string SessionId { get; set; }
-        public IList<string> RecordId { get; set; }
+        public IReadOnlyList<int> RecordIds { get; set; }
     }
-    public class InstituteCreatedInPrimaryDBEvent
-    {
-        public string SessionId { get; set; }
-        public int LocalRecordId { get; set; }
-        public string PrimaryDbRecordId { get; set; }
-    }
-    public class PrimaryMemberCreatedInPrimaryDBEvent
+    public class InstituteCreatedEvent
     {
         public string SessionId { get; set; }
         public int LocalRecordId { get; set; }
         public string PrimaryDbRecordId { get; set; }
     }
-    public class SecondaryMemberCreatedInPrimaryDBEvent
+    public class PrimaryMemberCreatedEvent
     {
         public string SessionId { get; set; }
         public int LocalRecordId { get; set; }
         public string PrimaryDbRecordId { get; set; }
     }
-
+    public class SecondaryMemberCreatedEvent
+    {
+        public string SessionId { get; set; }
+        public int LocalRecordId { get; set; }
+        public string PrimaryDbRecordId { get; set; }
+    }
 }
 

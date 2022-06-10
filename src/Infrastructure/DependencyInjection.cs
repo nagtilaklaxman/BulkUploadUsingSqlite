@@ -1,4 +1,5 @@
 ﻿
+using Infrastructure.ESanjeevani.InstituteMember.Jobs;
 using Infrastructure.FileHelper;
 using Infrastructure.Interfaces;
 using Infrastructure.Interfaces.FileHelper;
@@ -28,11 +29,13 @@ namespace Infrastructure
                 options.UseSqlite("Data/BulkUploadRequestsDB.db");
                 options.Interval = TimeSpan.FromMinutes(5);
             });
+            services.AddInstituteMember(options =>
+            {
+                options.UseSqlite("logs", "uploadLog");
+            });
             services.AddScoped(typeof(ICsvHelper<>), typeof(CsvHelper<>));
             services.AddScoped(typeof(IExcelHelper<>), typeof(ExcelHelper<>));
-            services.AddScoped<IInstituteMemberSession, InstituteMemberSession>();
-            services.AddScoped<IInstituteMemberConnectionFactory, InstituteMemberConnectionFactory>();
-            services.AddScoped<IInstituteMemberMigrator, InstituteMemberMigrator>();
+          
 
             return services;
         }

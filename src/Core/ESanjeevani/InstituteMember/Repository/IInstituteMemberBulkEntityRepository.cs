@@ -5,7 +5,7 @@ namespace Core.ESanjeevani.InstituteMember.Repository
 {
     public interface IInstituteMemberBulkEntityRepository : IRepository<InstituteMemberBulkEntity>
     {
-
+        public string Connectionstring { get;  }
     }
 }
 
