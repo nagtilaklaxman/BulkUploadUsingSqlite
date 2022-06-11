@@ -4,7 +4,7 @@ using Core.ESanjeevani.InstituteMember.Repository;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
 {
-    public class InsituteRepository : IInsituteRepository
+    public class InstituteRepository : IInstituteRepository
     {
         public Task<int> AddAsync(Institute entity)
         {
@@ -42,13 +42,13 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
         }
     }
 
-    public class InsituteWithLoggerRepository : IInsituteRepository
+    public class InstituteWithLoggerRepository : IInstituteRepository
     {
-        private readonly IInsituteRepository _insituteRepository;
+        private readonly IInstituteRepository _instituteRepository;
 
-        public InsituteWithLoggerRepository(IInsituteRepository insituteRepository)
+        public InstituteWithLoggerRepository(IInstituteRepository instituteRepository)
         {
-            this._insituteRepository = insituteRepository;
+            this._instituteRepository = instituteRepository;
         }
         public Task<int> AddAsync(Institute entity)
         {

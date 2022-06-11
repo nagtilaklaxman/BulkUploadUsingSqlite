@@ -4,6 +4,7 @@ using Core.ESanjeevani.InstituteMember.Entities;
 using Core.ESanjeevani.InstituteMember.Repository;
 using Dapper;
 using Infrastructure.ESanjeevani.InstituteMember.Jobs;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
@@ -12,15 +13,15 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
     {
         private readonly IDbConnection _connection;
 
-        public InstituteMemberBulkEntityRepository(IOptionsMonitor<InstituteMemberOptions> options)
+        public InstituteMemberBulkEntityRepository(IDbConnection connection)
         {
-            Console.WriteLine("options value : {0}",options.CurrentValue.Connection?.ConnectionString);
-            _connection = options.CurrentValue.Connection;
+            _connection = connection;
+            Console.WriteLine("options value : {0}",_connection.ConnectionString);
         }
         public async Task<int> AddAsync(InstituteMemberBulkEntity entity)
         {
             var sql = $@" INSERT INTO InstituteMemberBulkEntity (
-                                        ,'{nameof(entity.AssignedInstituteID)}'
+                                        '{nameof(entity.AssignedInstituteID)}'
                                         ,'{nameof(entity.CreatedDate)}'
                                         ,'{nameof(entity.DeletedDate)}'
                                         ,'{nameof(entity.DOB)}'
@@ -60,7 +61,7 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
                                         ,'{nameof(entity.UserRole)}'
                                         ,'{nameof(entity.UserStateId)}'
                                         ) values(
-                                        ,'{entity.AssignedInstituteID}'
+                                        '{entity.AssignedInstituteID}'
                                         ,'{entity.CreatedDate}'
                                         ,'{entity.DeletedDate}'
                                         ,'{entity.DOB}'

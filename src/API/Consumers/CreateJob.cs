@@ -39,18 +39,23 @@ public class CreateJob : IConsumer<FileUploadedEvent>
     public class AddDataFromFileHandler: IConsumer<AddDataFromFileCommand>
     {
         private readonly ILogger<AddDataFromFileHandler> _logger;
-        private readonly IInstituteMemberBulkEntityRepository _repository;
+        private readonly IServiceProvider _provider;
 
-        public AddDataFromFileHandler(ILogger<AddDataFromFileHandler> logger ,IInstituteMemberBulkEntityRepository repository)
+        public AddDataFromFileHandler(ILogger<AddDataFromFileHandler> logger, IServiceProvider provider )
         {
             _logger = logger;
-            _repository = repository;
+            _provider = provider;
         }
         public async Task Consume(ConsumeContext<AddDataFromFileCommand> context)
         {
-           _logger.LogInformation($"AddDataFromFileCommand received repository {_repository.Connectionstring} ", context.Message);
-           await Task.Delay(5000);
-           _logger.LogInformation($"After delay Value of repository : {_repository.Connectionstring}");
+            using (var scope = _provider.CreateScope())
+            {
+                var unitofWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+               await unitofWork.SetSession(context.Message.SessionId);
+                _logger.LogInformation($"AddDataFromFileCommand received repository {unitofWork.BulkEntities.Connectionstring} ", context.Message);
+                await Task.Delay(5000);
+                _logger.LogInformation($"After delay Value of repository : {unitofWork.BulkEntities.Connectionstring}");
+            }
         }
     }
 }

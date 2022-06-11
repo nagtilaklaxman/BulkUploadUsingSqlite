@@ -8,12 +8,12 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Jobs
     public class InstituteMemberJobHandler
     {
         private readonly ILogger<InstituteMemberJobHandler> _logger;
-        private readonly IInstituteMemberBulkEntityRepository _memberBulkEntityRepository;
+     
 
-        public InstituteMemberJobHandler(ILogger<InstituteMemberJobHandler> logger, IInstituteMemberBulkEntityRepository memberBulkEntityRepository)
+        public InstituteMemberJobHandler(ILogger<InstituteMemberJobHandler> logger)
         {
             _logger = logger;
-            _memberBulkEntityRepository = memberBulkEntityRepository;
+
         }
     }
 

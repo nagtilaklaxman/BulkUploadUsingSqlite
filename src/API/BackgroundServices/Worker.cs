@@ -1,21 +1,21 @@
-﻿using System;
-using Core.ESanjeevani.InstituteMember.Events;
+﻿using Infrastructure.ESanjeevani.InstituteMember.Commands;
 using Infrastructure.ESanjeevani.InstituteMember.Jobs;
-using MassTransit;
+using MediatR;
 using Microsoft.Extensions.Options;
 
 namespace API.BackgroundServices
 {
     public class Worker : BackgroundService
     {
-        readonly IBus _bus;
-        private readonly IServiceProvider _serviceProvider;
+       
+        private readonly IOptionsMonitor<InstituteMemberOptions> _options;
+        private readonly IServiceProvider _provider;
 
 
-        public Worker(IBus bus, IServiceProvider serviceProvider)
+        public Worker(IOptionsMonitor<InstituteMemberOptions> options, IServiceProvider provider)
         {
-            _bus = bus;
-            _serviceProvider = serviceProvider;
+            _options = options;
+            _provider = provider;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -25,23 +25,20 @@ namespace API.BackgroundServices
                
                 try
                 {
-                    using (var scope = _serviceProvider.CreateScope())
+                    using (var scope = _provider.CreateScope())
                     {
+                        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
                         var sessionId = Guid.NewGuid();
-                        var options = scope.ServiceProvider.GetRequiredService<IOptionsMonitor<InstituteMemberOptions>>();
-                        options.CurrentValue.SetSession(sessionId.ToString());
-                        
-                        var sendEndpoint = await _bus.GetPublishSendEndpoint<AddDataFromFileCommand>();
-                        
-                        await sendEndpoint.Send<AddDataFromFileCommand>(
-                            new ()
-                            {
-                                FilePath = $"{sessionId}/test.xlsx",
-                                SessionId = sessionId.ToString()
-                            }, stoppingToken);
+                      
+                        _options.CurrentValue.SetSession(sessionId.ToString());
+                        await mediator.Publish(new AddRecordsFromFile()
+                        {
+                            FilePath = $"logs/146c1991-83e1-4884-b139-4d7890c2d6d3/CH 19.xlsx",
+                            SessionId = "146c1991-83e1-4884-b139-4d7890c2d6d3"
+                        }, stoppingToken);
+                        await Task.Delay(150000, stoppingToken);
                     }
-
-                    await Task.Delay(3000, stoppingToken);
+                      
                 }
                 catch (Exception ex)
                 {

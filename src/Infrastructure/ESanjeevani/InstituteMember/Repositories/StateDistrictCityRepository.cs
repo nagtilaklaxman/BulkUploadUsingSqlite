@@ -1,7 +1,11 @@
 using System.Data;
 using Core.ESanjeevani.InstituteMember.Entities;
+using Core.ESanjeevani.InstituteMember.Repositories;
 using Core.ESanjeevani.InstituteMember.Repository;
 using Dapper;
+using Infrastructure.ESanjeevani.InstituteMember.Jobs;
+using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.Repositories;
 
@@ -136,4 +140,34 @@ public class StateDistrictCityRepository : IStateDistrictCityRepository
     {
         throw new NotImplementedException();
     }
+}
+
+public class UnitOfWork : IUnitOfWork
+{
+    private IDbConnection _connection;
+    private string _dbName;
+    private string _dbFolder;
+    public UnitOfWork(IOptionsMonitor<InstituteMemberOptions> options)
+    {
+        _dbName = options.CurrentValue.DbName;
+        _dbFolder = options.CurrentValue.DbFolder;
+    }
+    public async Task<bool> SetSession(string sessionId)
+    {
+        var dbPath = $"{_dbFolder}/{sessionId}/{_dbName}";
+        var sqlConString = new SqliteConnectionStringBuilder
+        {
+            DataSource = dbPath,
+            Mode = SqliteOpenMode.ReadWriteCreate,
+            ForeignKeys = true,
+            Pooling = true
+        }.ConnectionString;
+        _connection = new SqliteConnection(sqlConString);        
+        
+        return true;
+    }
+
+    public IInstituteMemberBulkEntityRepository BulkEntities => new InstituteMemberBulkEntityRepository(_connection);
+    public IInstituteRepository Institutes { get; }
+    public IMemberRepository Members { get; }
 }

@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using CsvHelper.Configuration;
 using CsvHelper.Excel;
 using Infrastructure.Interfaces.FileHelper;
 

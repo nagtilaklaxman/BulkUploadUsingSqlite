@@ -3,7 +3,7 @@ using Core.interfaces.Repository;
 
 namespace Core.ESanjeevani.InstituteMember.Repository
 {
-    public interface IInsituteRepository : IRepository<Institute>
+    public interface IInstituteRepository : IRepository<Institute>
     {
 
     }

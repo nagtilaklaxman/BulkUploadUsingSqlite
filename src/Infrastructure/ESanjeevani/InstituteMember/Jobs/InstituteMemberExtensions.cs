@@ -1,6 +1,9 @@
 using Core.ESanjeevani.InstituteMember.Repository;
+using Infrastructure.ESanjeevani.InstituteMember.Commands;
 using Infrastructure.ESanjeevani.InstituteMember.Migrations;
 using Infrastructure.ESanjeevani.InstituteMember.Repositories;
+using MediatR;
+using MediatR.Helper;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.Jobs;
@@ -13,10 +16,13 @@ public static class InstituteMemberExtensions
         {
             throw new ArgumentNullException(nameof(services));
         }
+
+        services.AddScoped<IUnitOfWork,UnitOfWork>();
         services.AddScoped<IInstituteMemberSession, InstituteMemberSession>();
         services.AddScoped<IInstituteMemberConnectionFactory, InstituteMemberConnectionFactory>();
         services.AddScoped<IInstituteMemberMigrator, InstituteMemberMigrator>();
-        services.AddScoped<IInstituteMemberBulkEntityRepository, InstituteMemberBulkEntityRepository>();
+        services.AddMediatR(typeof(AddRecordsFromFile));
+        services.AddSingleton<Publisher>();
         return services;
     }
     public static IServiceCollection AddInstituteMember(this IServiceCollection services, Action<InstituteMemberOptions> setupAction)

@@ -8,7 +8,10 @@ public class InstituteMemberOptions
     private string _dbFolder = "logs";
     private string _dbName="uploadLog";
     private IDbConnection _connection;
+    
     public IDbConnection Connection => _connection;
+    public string DbFolder => _dbFolder;
+    public string DbName => _dbName;
     
     public void UseSqlite(string dbFolder ,string dbName)
     {

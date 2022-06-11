@@ -22,6 +22,9 @@ namespace Infrastructure
             .AddClasses(classes => classes.AssignableTo<IInstituteMemberMigration>())
             .As<IInstituteMemberMigration>()
             .WithScopedLifetime()
+            .AddClasses(classes => classes.AssignableTo(typeof(IMapper<,>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime()
             );
 
             services.AddBulkJob(options =>
@@ -31,7 +34,7 @@ namespace Infrastructure
             });
             services.AddInstituteMember(options =>
             {
-                options.UseSqlite("logs", "uploadLog");
+                options.UseSqlite("logs", "uploadLog.db");
             });
             services.AddScoped(typeof(ICsvHelper<>), typeof(CsvHelper<>));
             services.AddScoped(typeof(IExcelHelper<>), typeof(ExcelHelper<>));

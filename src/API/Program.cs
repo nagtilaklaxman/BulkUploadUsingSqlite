@@ -1,5 +1,6 @@
 ﻿using API;
 using API.Extensions;
+using DocumentFormat.OpenXml.Bibliography;
 using Infrastructure;
 using Serilog;
 
@@ -35,7 +36,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<LogFilePathEnricher>();
-builder.Services.AddQueueManager();
+//builder.Services.AddQueueManager();
 builder.Services.AddBackgroundServices();
 
 builder.Services.AddInfrastructure();

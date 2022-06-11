@@ -7,7 +7,7 @@ namespace Core.ESanjeevani.InstituteMember.Events
         public string FileName { get; set; }
         public string Path { get; set; }
     }
-    public class AddDataFromFileCommand
+    public class AddDataFromFileCommand 
     {
         public string SessionId { get; set; }
         public string FilePath { get; set; }
