@@ -1,5 +1,4 @@
-﻿using Infrastructure.ESanjeevani.InstituteMember.Commands;
-using Infrastructure.ESanjeevani.InstituteMember.Jobs;
+﻿using Infrastructure.ESanjeevani.InstituteMember.Jobs;
 using MediatR;
 using Microsoft.Extensions.Options;
 
@@ -31,12 +30,12 @@ namespace API.BackgroundServices
                         var sessionId = Guid.NewGuid();
                       
                         _options.CurrentValue.SetSession(sessionId.ToString());
-                        await mediator.Publish(new AddRecordsFromFile()
+                        /*await mediator.Send(new AddRecordsFromFile()
                         {
                             FilePath = $"logs/146c1991-83e1-4884-b139-4d7890c2d6d3/CH 19.xlsx",
                             SessionId = "146c1991-83e1-4884-b139-4d7890c2d6d3"
-                        }, stoppingToken);
-                        await Task.Delay(150000, stoppingToken);
+                        }, stoppingToken);*/
+                        await Task.Delay(3000, stoppingToken);
                     }
                       
                 }

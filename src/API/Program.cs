@@ -1,7 +1,7 @@
 ﻿using API;
 using API.Extensions;
 using DocumentFormat.OpenXml.Bibliography;
-using Infrastructure;
+using Infrastructure.Common;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,7 +39,7 @@ builder.Services.AddTransient<LogFilePathEnricher>();
 //builder.Services.AddQueueManager();
 builder.Services.AddBackgroundServices();
 
-builder.Services.AddInfrastructure();
+builder.Services.AddCommonInfrastructure();
 
 var app = builder.Build();
 

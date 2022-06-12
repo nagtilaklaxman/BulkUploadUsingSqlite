@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using API.Models;
-using Core.Entities;
+using Domain.Common.Entities;
 using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Mvc;
 

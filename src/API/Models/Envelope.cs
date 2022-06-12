@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Entities;
+using Domain.Common.Entities;
 
 namespace API.Models
 {

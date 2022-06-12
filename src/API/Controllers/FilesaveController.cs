@@ -1,11 +1,11 @@
 ﻿using System.Net;
 using API.Controllers;
 using API.Models;
-using Core.Entities;
-using Core.ESanjeevani.InstituteMember.Events;
+using Domain.Common.Entities;
+using Domain.Common.interfaces.FileHelper;
+using Domain.ESanjeevani.InstituteMember.Events;
 using Infrastructure.ESanjeevani.InstituteMember.FileHelper;
 using Infrastructure.ESanjeevani.InstituteMember.Migrations;
-using Infrastructure.Interfaces.FileHelper;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 

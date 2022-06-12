@@ -36,6 +36,7 @@
     <None Remove="Development\unsafe_uploads\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Events" />
     <Folder Include="Extensions\" />
     <Folder Include="BackgroundServices\" />
     <Folder Include="Consumers\" />
@@ -44,11 +45,6 @@
     <Folder Include="Development\unsafe_uploads\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.ESanjeevani.InstituteMember\Infrastructure.ESanjeevani.InstituteMember.csproj" />
   </ItemGroup>
 </Project>

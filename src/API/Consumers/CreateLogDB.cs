@@ -1,5 +1,5 @@
-﻿using System;
-using Core.ESanjeevani.InstituteMember.Events;
+﻿using Domain.ESanjeevani.InstituteMember.Events;
+using Domain.ESanjeevani.InstituteMember.Migrations;
 using Infrastructure.ESanjeevani.InstituteMember.Migrations;
 using MassTransit;
 

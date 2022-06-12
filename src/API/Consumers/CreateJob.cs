@@ -1,8 +1,9 @@
-using Core.ESanjeevani.InstituteMember.Events;
-using Core.ESanjeevani.InstituteMember.Repository;
-using Core.interfaces.Repository;
+using Domain.Common.Entities;
+using Domain.Common.interfaces.Repository;
+using Domain.ESanjeevani.InstituteMember.Entities;
+using Domain.ESanjeevani.InstituteMember.Events;
+using Domain.ESanjeevani.InstituteMember.Repository;
 using Infrastructure.ESanjeevani.InstituteMember.Jobs;
-using Infrastructure.Jobs;
 using MassTransit;
 using Newtonsoft.Json;
 
