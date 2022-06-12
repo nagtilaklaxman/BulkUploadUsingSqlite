@@ -16,6 +16,4 @@ public interface IUnitOfWork
 {
     public Task<bool> SetSession(string sessionId);
     public IInstituteMemberBulkEntityRepository BulkEntities { get; }
-    public IInstituteRepository Institutes { get;}
-    public IMemberRepository Members { get;}
 }
