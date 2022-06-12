@@ -1,0 +1,33 @@
+﻿@using BlazorWebAssemblyClient.Services
+
+@inject ISpinnerService SpinnerService
+
+@if (isVisible)
+{
+    <div class="spinner-container">
+        <Spinner_Wave />
+    </div>
+}
+
+@code
+{
+    protected bool isVisible { get; set; }
+
+    protected override void OnInitialized()
+    {
+        SpinnerService.OnShow += ShowSpinner;
+        SpinnerService.OnHide += HideSpinner;
+    }
+
+    public void ShowSpinner()
+    {
+        isVisible = true;
+        StateHasChanged();
+    }
+
+    public void HideSpinner()
+    {
+        isVisible = false;
+        StateHasChanged();
+    }
+}

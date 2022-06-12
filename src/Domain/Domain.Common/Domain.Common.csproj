@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Events\" />
+		<None Remove="Microsoft.Extensions.DependencyInjection" />
+		<None Remove="interfaces\" />
+		<None Remove="interfaces\Repository\" />
+		<None Remove="Entities\" />
+		<None Remove="ESanjeevani\" />
+		<None Remove="ESanjeevani\InstituteMember\" />
+		<None Remove="ESanjeevani\InstituteMember\Entities\" />
+		<None Remove="ESanjeevani\InstituteMember\Events\" />
+		<None Remove="ESanjeevani\InstituteMember\Repository\" />
+		<None Remove="ESanjeevani\InstituteMember\ViewModels\" />
+		<None Remove="ESanjeevani\InstituteMember\Services\" />
+		<None Remove="ESanjeevani\InstituteMember\Validations\" />
+		<None Remove="FluentValidation" />
+		<None Remove="CSharpFunctionalExtensions" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="interfaces\" />
+		<Folder Include="interfaces\Repository\" />
+		<Folder Include="Entities\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="FluentValidation" Version="11.0.2" />
+	  <PackageReference Include="CSharpFunctionalExtensions" Version="2.29.1" />
+	</ItemGroup>
+</Project>
