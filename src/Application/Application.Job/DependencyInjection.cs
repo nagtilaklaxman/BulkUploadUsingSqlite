@@ -1,6 +1,4 @@
-using Application.Job.Commands;
-using Domain.Common.interfaces;
-using MediatR;
+using Application.Job.BackgroundServices;
 using MediatR.Helper;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,26 +9,15 @@ public static class DependencyInjection
     public static IServiceCollection AddJobApplication(this IServiceCollection services)
     {
         //Add mediator assemblies here
-        services.AddMediatR(typeof(CheckPendingJob).Assembly);
-
-        services.AddScoped<ModuleJobHandlerResolver>(serviceProvider => moduleName =>
+        
+        services.AddBackgroundService(options =>
         {
-            IJobRecordCommand command = null;
-            switch (moduleName)
-            {
-                /*case ModuleNames.Esanjeevani.InstituteMember:
-                    command = serviceProvider.GetRequiredService<RunJobForInstituteMember>();
-                    break;*/
-                default:
-                    command = serviceProvider.GetRequiredService<NoJobModuleRegistered>();
-                    break;
-            }
-
-            return command;
-
+            options.Interval = TimeSpan.FromMinutes(5);
         });
+        
 
         services.AddSingleton<Publisher>();
+
         return services;
     }
 }

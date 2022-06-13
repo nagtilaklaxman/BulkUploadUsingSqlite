@@ -38,13 +38,12 @@
   <ItemGroup>
     <Folder Include="Events" />
     <Folder Include="Extensions\" />
-    <Folder Include="BackgroundServices\" />
-    <Folder Include="Consumers\" />
     <Folder Include="Models\" />
     <Folder Include="Development\" />
     <Folder Include="Development\unsafe_uploads\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Application\Application.ESanjeevani.InstituteMember\Application.ESanjeevani.InstituteMember.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.ESanjeevani.InstituteMember\Infrastructure.ESanjeevani.InstituteMember.csproj" />
   </ItemGroup>
 </Project>

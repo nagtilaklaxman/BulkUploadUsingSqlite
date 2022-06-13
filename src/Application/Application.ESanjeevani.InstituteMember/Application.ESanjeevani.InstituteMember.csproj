@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\Domain.ESanjeevani.InstituteMember\Domain.ESanjeevani.InstituteMember.csproj" />
+      <ProjectReference Include="..\Application.Job\Application.Job.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -16,6 +17,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+        <HintPath>..\..\..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\6.0.5\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      </Reference>
       <Reference Include="Microsoft.Extensions.Logging.Abstractions">
         <HintPath>..\..\..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\6.0.5\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
       </Reference>

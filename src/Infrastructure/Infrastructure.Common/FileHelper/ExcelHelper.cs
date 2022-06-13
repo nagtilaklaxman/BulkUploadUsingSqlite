@@ -7,12 +7,12 @@ namespace Infrastructure.Common.FileHelper
 {
     public class ExcelHelper<T> : BaseFileHelper<T>, IExcelHelper<T> where T : new()
     {
-        public override IList<T> Read(string filePath)
+        public override Task<List<T>> Read(string filePath)
         {
             using var reader = new CsvReader(new ExcelParser(filePath));
             var temp = reader.GetRecords<T>();
             var records = temp?.ToList() ?? new List<T>();
-            return records;
+            return Task.FromResult(records);
         }
 
         public override bool Write(IList<T> data, string filePath)

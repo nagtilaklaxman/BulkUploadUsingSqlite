@@ -1,16 +1,19 @@
 ﻿using CSharpFunctionalExtensions;
 using Domain.Common.Entities;
+using Domain.Common.interfaces;
+using Domain.Common.interfaces.FileHelper;
+using Domain.ESanjeevani.InstituteMember;
+using Domain.ESanjeevani.InstituteMember.Entities;
 using Infrastructure.Common.FileHelper;
+using Infrastructure.ESanjeevani.InstituteMember.FileHelper;
 using OfficeOpenXml;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.FileHelper
 {
-    public class InstituteMemberExcelHelper : ExcelHelper<InstituteMemberExcelEntity>
+    public class InstituteMemberExcelEntityFileHelper : ExcelHelper<InstituteMemberExcelEntity>
     {
-        long maxFileSize = 1024 * 1024 * 15;
         private readonly Dictionary<string, string> _columnPropertyMapping;
-
-        public InstituteMemberExcelHelper()
+        public InstituteMemberExcelEntityFileHelper()
         {
             var obj = new InstituteMemberExcelEntity();
             _columnPropertyMapping = new Dictionary<string, string>()
@@ -49,22 +52,11 @@ namespace Infrastructure.ESanjeevani.InstituteMember.FileHelper
                 { "Sub Menu", nameof(obj.SubMenuNames) }
             };
         }
-        public async override Task<Result<bool, BulkError>> SaveAsync(Stream stream, string filePath)
-        {
-            if (stream.Length == 0)
-            {
-                return Errors.File.Empty();
-            }
-            if (stream.Length > maxFileSize)
-            {
-                return Errors.File.TooLarge(maxFileSize.ToString());
-            }
-            return await base.SaveAsync(stream, filePath);
-        }
-        public override IList<InstituteMemberExcelEntity> Read(string filePath)
+       
+        public override Task<List<InstituteMemberExcelEntity>> Read(string filePath)
         {
             var fileInfo = new FileInfo(filePath);
-            IList<InstituteMemberExcelEntity> returnList = new List<InstituteMemberExcelEntity>();
+            var returnList = new List<InstituteMemberExcelEntity>();
             var obj = new InstituteMemberExcelEntity();
             var properties = obj.GetType().GetProperties();
             //ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -79,7 +71,7 @@ namespace Infrastructure.ESanjeevani.InstituteMember.FileHelper
                     returnList = GetDataForMappedColumns(ws, excelColumnHeaders, properties);
                 }
             }
-            return returnList;
+            return Task.FromResult(returnList);
         }
         private void TrimEmptyRows(ExcelWorksheet worksheet)
         {
@@ -131,7 +123,7 @@ namespace Infrastructure.ESanjeevani.InstituteMember.FileHelper
 
             return excelColumnHeaders;
         }
-        private IList<InstituteMemberExcelEntity> GetDataForMappedColumns(ExcelWorksheet ws, List<string> excelColumnHeaders, IEnumerable<System.Reflection.PropertyInfo> properties)
+        private List<InstituteMemberExcelEntity> GetDataForMappedColumns(ExcelWorksheet ws, List<string> excelColumnHeaders, IEnumerable<System.Reflection.PropertyInfo> properties)
         {
             List<InstituteMemberExcelEntity> returnList = new List<InstituteMemberExcelEntity>();
             for (int rowNum = 3; rowNum <= ws.Dimension.End.Row; rowNum++)
@@ -160,6 +152,50 @@ namespace Infrastructure.ESanjeevani.InstituteMember.FileHelper
         {
             return base.Write(data, filePath);
         }
+    }
+}
+
+public class InstituteMemberExcelHelper : ExcelHelper<InstituteMemberBulkEntity>, IInstituteMemberExcelHelper
+{
+    private readonly IExcelHelper<InstituteMemberExcelEntity> _excelHelper;
+    private readonly IMapper<InstituteMemberExcelEntity, InstituteMemberBulkEntity> _mapper;
+    long maxFileSize = 1024 * 1024 * 15;
+
+    public InstituteMemberExcelHelper(IExcelHelper<InstituteMemberExcelEntity> excelHelper, IMapper<InstituteMemberExcelEntity,InstituteMemberBulkEntity> mapper)
+    {
+        _excelHelper = excelHelper;
+        _mapper = mapper;
+    }
+
+    public override async Task<Result<bool, BulkError>> SaveAsync(Stream stream, string filePath)
+    {
+        if (stream.Length == 0)
+        {
+            return Errors.File.Empty();
+        }
+        if (stream.Length > maxFileSize)
+        {
+            return Errors.File.TooLarge(maxFileSize.ToString());
+        }
+        return await base.SaveAsync(stream, filePath);
+    }
+
+    public bool Write(IList<InstituteMemberBulkEntity> data, string filePath)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override async Task<List<InstituteMemberBulkEntity>> Read(string filePath)
+    {
+        var entities = new List<InstituteMemberBulkEntity>();
+        var excelEntities = await _excelHelper.Read(filePath);
+        if (excelEntities is not null && excelEntities.Count() > 0)
+        { 
+            var temp = await _mapper.Map(excelEntities);
+            entities = temp?.ToList() ?? new List<InstituteMemberBulkEntity>();
+        }
+
+        return entities;
     }
 }
 

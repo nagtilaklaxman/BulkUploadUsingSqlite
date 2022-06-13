@@ -1,5 +1,6 @@
 using Domain.Common.Entities;
 using Domain.Common.interfaces;
+using Domain.ESanjeevani.InstituteMember.Entities;
 using Domain.ESanjeevani.InstituteMember.Repository;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -26,12 +27,22 @@ public class RunJobForInstituteMemberHandler : IRequestHandler<RunJobForInstitut
     }
     public async Task<JobRecord> Handle(RunJobForInstituteMember request, CancellationToken cancellationToken)
     {
-        /*await _unitOfWork.SetSession(request.JobRecord.SessionId);
-        var bulkEntities = await _unitOfWork.BulkEntities.GetAllAsync();
-        foreach (var entity in bulkEntities)
+        var jobData = request.JobRecord.GetJobData<InstituteMemberJobData>();
+
+        IRequest<InstituteMemberCommandResponse> command;
+        if (jobData != null)
         {
-            
-        }*/
+            command = jobData.Status switch
+            {
+                InstituteMemberTaskStatus.FileReceived => new AddRecordsFromFile(request.JobRecord),
+                InstituteMemberTaskStatus.DataReceived => new ValidateData(request.JobRecord),
+                InstituteMemberTaskStatus.ApprovedToImport => new AddRecordsFromFile(request.JobRecord)
+            };
+            if (command != null && _mediator != null)
+            {
+                await _mediator.Send(command);
+            }
+        }
         _logger.LogInformation("job request received in instituteMember");
         return request.JobRecord;
     }

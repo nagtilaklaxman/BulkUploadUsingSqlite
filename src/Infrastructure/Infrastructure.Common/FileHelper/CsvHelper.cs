@@ -12,7 +12,7 @@ namespace Infrastructure.Common.FileHelper
 
         }
 
-        public override IList<T> Read(string filePath)
+        public override Task<List<T>> Read(string filePath)
         {
             var records = new List<T>();
             using (var reader = new StreamReader(filePath))
@@ -22,7 +22,7 @@ namespace Infrastructure.Common.FileHelper
                 records = temp?.ToList() ?? new List<T>();
             }
 
-            return records;
+            return Task.FromResult(records);
         }
 
         public override bool Write(IList<T> data, string filePath)

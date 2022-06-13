@@ -6,7 +6,7 @@ namespace Infrastructure.Common.FileHelper
 {
     public abstract class BaseFileHelper<T> : IFileHelper<T> where T : new()
     {
-        public abstract IList<T> Read(string filePath);
+        public abstract Task<List<T>> Read(string filePath);
 
 
         public async virtual Task<Result<bool, BulkError>> SaveAsync(Stream stream, string filePath)

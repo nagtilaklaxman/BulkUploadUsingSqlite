@@ -1,4 +1,7 @@
+using Domain.Common.interfaces.FileHelper;
+using Domain.ESanjeevani.InstituteMember;
 using Domain.ESanjeevani.InstituteMember.Migrations;
+using Infrastructure.ESanjeevani.InstituteMember.FileHelper;
 using Infrastructure.ESanjeevani.InstituteMember.Jobs;
 using Infrastructure.ESanjeevani.InstituteMember.Migrations;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +18,9 @@ public static class DependencyInjection
             .AddClasses(classes => classes.AssignableTo(typeof(IInstituteMemberMigration)))
             .AsImplementedInterfaces()
             .WithScopedLifetime());
-        
+
+        services.AddScoped<IInstituteMemberExcelHelper, InstituteMemberExcelHelper>();
+        services.AddScoped<IExcelHelper<InstituteMemberExcelEntity>, InstituteMemberExcelEntityFileHelper>();
         services.AddInstituteMember(options =>
         {
             options.UseSqlite("logs", "uploadLog.db");

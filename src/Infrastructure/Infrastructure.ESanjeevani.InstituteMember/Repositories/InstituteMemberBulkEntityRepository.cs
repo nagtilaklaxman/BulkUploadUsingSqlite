@@ -2,6 +2,7 @@
 using Domain.ESanjeevani.InstituteMember.Entities;
 using Domain.ESanjeevani.InstituteMember.Repository;
 using Dapper;
+using Domain.Common.Entities;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
 {
@@ -134,7 +135,46 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
 
         public async Task<IReadOnlyList<InstituteMemberBulkEntity>> GetAllAsync()
         {
-            var sql = $@" SELECT * FROM InstituteMemberBulkEntity";
+            var entity = new InstituteMemberBulkEntity();
+            var sql = $@" SELECT 
+                                         {nameof(entity.Id)}
+                                        ,{nameof(entity.AssignedInstituteID)}
+                                        ,{nameof(entity.DOB)}
+                                        ,{nameof(entity.DRRegNo)}
+                                        ,{nameof(entity.Experience)}
+                                        ,{nameof(entity.HFAddress)}
+                                        ,{nameof(entity.HFCityId)}
+                                        ,{nameof(entity.HFDistrictId)}
+                                        ,{nameof(entity.HFEmail)}
+                                        ,{nameof(entity.HFName)}
+                                        ,{nameof(entity.HFPhone)}
+                                        ,{nameof(entity.HFPIN)}
+                                        ,{nameof(entity.HFShortName)}
+                                        ,{nameof(entity.HFStateId)}
+                                        ,{nameof(entity.HFTypeId)}
+                                        ,{nameof(entity.IsDelted)}
+                                        ,{nameof(entity.NIN)}
+                                        ,{nameof(entity.QualificationId)}
+                                        ,{nameof(entity.SessionId)}
+                                        ,{nameof(entity.SpecialityId)}
+                                        ,{nameof(entity.SubMenuNames)}
+                                        ,{nameof(entity.UserAddress)}
+                                        ,{nameof(entity.UserAvailableDay)}
+                                        ,{nameof(entity.UserAvailableFromTime)}
+                                        ,{nameof(entity.UserAvailableToTime)}
+                                        ,{nameof(entity.UserCityId)}
+                                        ,{nameof(entity.UserDistrictId)}
+                                        ,{nameof(entity.UserDistrictShortCode)}
+                                        ,{nameof(entity.UserEmail)}
+                                        ,{nameof(entity.UserFirstName)}
+                                        ,{nameof(entity.UserGenderId)}
+                                        ,{nameof(entity.UserLastName)}
+                                        ,{nameof(entity.UserMobile)}
+                                        ,{nameof(entity.UserPin)}
+                                        ,{nameof(entity.UserPrefix)}
+                                        ,{nameof(entity.UserRole)}
+                                        ,{nameof(entity.UserStateId)}
+           FROM InstituteMemberBulkEntity";
             var results = await _connection.QueryAsync<InstituteMemberBulkEntity>(sql);
             return results?.ToList() ?? new List<InstituteMemberBulkEntity>();
         }
@@ -142,7 +182,45 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
         public async Task<InstituteMemberBulkEntity> GetByIdAsync(int id)
         {
             var entity = new InstituteMemberBulkEntity();
-            var sql = $@" SELECT * FROM InstituteMemberBulkEntity WHERE {nameof(entity.Id)} = {id};";
+            var sql = $@" SELECT 
+                                        {nameof(entity.Id)}
+                                        ,{nameof(entity.AssignedInstituteID)}
+                                        ,{nameof(entity.DOB)}
+                                        ,{nameof(entity.DRRegNo)}
+                                        ,{nameof(entity.Experience)}
+                                        ,{nameof(entity.HFAddress)}
+                                        ,{nameof(entity.HFCityId)}
+                                        ,{nameof(entity.HFDistrictId)}
+                                        ,{nameof(entity.HFEmail)}
+                                        ,{nameof(entity.HFName)}
+                                        ,{nameof(entity.HFPhone)}
+                                        ,{nameof(entity.HFPIN)}
+                                        ,{nameof(entity.HFShortName)}
+                                        ,{nameof(entity.HFStateId)}
+                                        ,{nameof(entity.HFTypeId)}
+                                        ,{nameof(entity.IsDelted)}
+                                        ,{nameof(entity.NIN)}
+                                        ,{nameof(entity.QualificationId)}
+                                        ,{nameof(entity.SessionId)}
+                                        ,{nameof(entity.SpecialityId)}
+                                        ,{nameof(entity.SubMenuNames)}
+                                        ,{nameof(entity.UserAddress)}
+                                        ,{nameof(entity.UserAvailableDay)}
+                                        ,{nameof(entity.UserAvailableFromTime)}
+                                        ,{nameof(entity.UserAvailableToTime)}
+                                        ,{nameof(entity.UserCityId)}
+                                        ,{nameof(entity.UserDistrictId)}
+                                        ,{nameof(entity.UserDistrictShortCode)}
+                                        ,{nameof(entity.UserEmail)}
+                                        ,{nameof(entity.UserFirstName)}
+                                        ,{nameof(entity.UserGenderId)}
+                                        ,{nameof(entity.UserLastName)}
+                                        ,{nameof(entity.UserMobile)}
+                                        ,{nameof(entity.UserPin)}
+                                        ,{nameof(entity.UserPrefix)}
+                                        ,{nameof(entity.UserRole)}
+                                        ,{nameof(entity.UserStateId)}
+                            FROM InstituteMemberBulkEntity WHERE {nameof(entity.Id)} = {id};";
             var result = await _connection.QueryFirstOrDefaultAsync<InstituteMemberBulkEntity>(sql);
             return result;
         }
@@ -165,7 +243,7 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
                                         ,'{nameof(entity.HFStateId)}' = '{entity.HFStateId}'
                                         ,'{nameof(entity.HFTypeId)}' = '{entity.HFTypeId}'
                                         ,'{nameof(entity.IsDelted)}' = '{entity.IsDelted}'
-                                        ,'{nameof(entity.ModifiedDate)}' = CURRENT_TIMESTAMP'
+                                        ,'{nameof(entity.ModifiedDate)}' = CURRENT_TIMESTAMP
                                         ,'{nameof(entity.NIN)}' = '{entity.NIN}'
                                         ,'{nameof(entity.QualificationId)}' = '{entity.QualificationId}'
                                         ,'{nameof(entity.SessionId)}' = '{entity.SessionId}'
@@ -197,6 +275,34 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
             {
                 return _connection.ConnectionString;
             }
+        }
+
+        public async Task<int> AddBulkEntityValidations(IEnumerable<BulkEntityValidation> validations)
+        {
+            var entity = new BulkEntityValidation();
+            var sql = $@" INSERT INTO BulkEntityValidations (
+                                     '{nameof(entity.BulkEntityId)}'
+                                    ,'{nameof(entity.ErrorMessage)}'
+                                    ,'{nameof(entity.PropertyName)}'
+                                    )
+                          VALUES (
+                                  '{entity.BulkEntityId}'
+                                  ,'{entity.ErrorMessage}'
+                                ,'{entity.PropertyName}'
+                          );";
+
+            return await _connection.ExecuteAsync(sql);
+        }
+
+        public async Task<int> DeleteBulkEntityValidations(IEnumerable<BulkEntityValidation> validations)
+        {
+            var commaSeperatedIds = string.Join(",",validations.Select(t => t.Id.ToString()));
+            var entity = new BulkEntityValidation();
+            var sql = $@" UPDATE BulkEntityValidations SET {nameof(entity.IsDeleted)} = '1'
+                         ,{nameof(entity.DeletedDate)} =  CURRENT_TIMESTAMP
+                         WHERE {nameof(entity.Id)} IN (commaSeperatedIds);";
+
+            return await _connection.ExecuteAsync(sql);
         }
     }
 }

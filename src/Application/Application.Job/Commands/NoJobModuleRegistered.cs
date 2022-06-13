@@ -19,9 +19,9 @@ public class NoModuleRegisteredHandler : IRequestHandler<NoJobModuleRegistered,J
     {
         _logger = logger;
     }
-    public async Task<JobRecord> Handle(NoJobModuleRegistered request, CancellationToken cancellationToken)
+    public  Task<JobRecord> Handle(NoJobModuleRegistered request, CancellationToken cancellationToken)
     {
         _logger.LogInformation($"Job Module not registered for {request.ModuleName} and job id {request.JobRecord.Id}");
-        return request.JobRecord;
+        return Task.FromResult(request.JobRecord);
     }
 }

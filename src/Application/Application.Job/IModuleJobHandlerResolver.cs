@@ -8,6 +8,6 @@ public static class ModuleNames
 {
     public static class Esanjeevani
     {
-        public const string InstituteMember = "esanjeevani.institutemember";
+        public const string InstituteMember = "module.esanjeevani.institutemember";
     }
 }

@@ -8,7 +8,7 @@ namespace Domain.Common.interfaces.FileHelper
     {
         public Task<Result<bool, BulkError>> SaveAsync(Stream stream, string filePath);
         public bool Write(IList<T> data, string filePath);
-        public IList<T> Read(string filePath);
+        public Task<List<T>> Read(string filePath);
     }
     public interface ICsvHelper<T> : IFileHelper<T> where T : new()
     {

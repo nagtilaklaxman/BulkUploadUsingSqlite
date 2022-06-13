@@ -1,5 +1,7 @@
 ﻿
+using Domain.Common.interfaces;
 using Domain.Common.interfaces.FileHelper;
+using Domain.Common.interfaces.Repository;
 using Infrastructure.Common.FileHelper;
 using Infrastructure.Common.Interfaces;
 using Infrastructure.Common.Jobs;
@@ -11,16 +13,7 @@ namespace Infrastructure.Common
     {
         public static IServiceCollection AddCommonInfrastructure(this IServiceCollection services)
         {
-            services.Scan(scan => scan
-            // We start out with all types in the assembly of ITransientService
-            .FromCallingAssembly()
-            .AddClasses(classes => classes.AssignableTo(typeof(IFileHelper<>)))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime()
-            .AddClasses(classes => classes.AssignableTo(typeof(IMapper<,>)))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime()
-            );
+           
             services.AddBulkJob(options =>
             {
                 options.UseSqlite("Data/BulkUploadRequestsDB.db");
@@ -28,6 +21,7 @@ namespace Infrastructure.Common
             });
             services.AddScoped(typeof(ICsvHelper<>), typeof(CsvHelper<>));
             services.AddScoped(typeof(IExcelHelper<>), typeof(ExcelHelper<>));
+            services.AddScoped<IJobRepository, JobRepository>();
             return services;
         }
     }

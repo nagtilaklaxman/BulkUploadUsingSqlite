@@ -1,5 +1,5 @@
+using Domain.Common.interfaces;
 using Domain.ESanjeevani.InstituteMember.Entities;
-using Infrastructure.Common.Interfaces;
 using Infrastructure.ESanjeevani.InstituteMember.FileHelper;
 
 namespace Infrastructure.ESanjeevani.InstituteMember;
@@ -59,33 +59,33 @@ public class ExcelEntityToBulkEntity : IMapper<InstituteMemberExcelEntity, Insti
     }
     private int GetSpecialityId(string specialityName)
     {
-        return 0;
+        return Random.Shared.Next(0, 10);
     }
     private int GetCityId(string cityName,string districtName, string stateName)
     {
-        return 0;
+        return Random.Shared.Next(0, 10);
     }
     private int GetDistrictId(string districtName, string stateName)
     {
-        return 0;
+        return Random.Shared.Next(0, 10);
     }
     private int GetStateId(string stateName)
     {
-        return 0;
+        return Random.Shared.Next(0, 10);
     }
 
     private int GetHFTypeId(string hfType)
     {
-        return 0;
+        return Random.Shared.Next(0, 10);
     }
     private int GetGenderId(string genderName)
     {
-        return 0;
+        return Random.Shared.Next(0, 3);
     }
 
     private int GetQualificationId(string qualificationName)
     {
-        return 0;
+        return Random.Shared.Next(0, 10);
     }
 
     public async Task<IEnumerable<InstituteMemberBulkEntity>> Map(IEnumerable<InstituteMemberExcelEntity> sourceRecords)
@@ -97,5 +97,15 @@ public class ExcelEntityToBulkEntity : IMapper<InstituteMemberExcelEntity, Insti
         }
 
         return bulkEntities;
+    }
+
+    public async Task<InstituteMemberExcelEntity> Map(InstituteMemberBulkEntity source)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<IEnumerable<InstituteMemberExcelEntity>> Map(IEnumerable<InstituteMemberBulkEntity> sourceRecords)
+    {
+        throw new NotImplementedException();
     }
 }

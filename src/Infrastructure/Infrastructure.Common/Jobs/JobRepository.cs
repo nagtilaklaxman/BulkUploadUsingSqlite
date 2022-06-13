@@ -80,7 +80,7 @@ public class JobRepository : IJobRepository
 
     public async Task<IReadOnlyList<JobRecord>> GetPendingJobs(int numberOfJobsToFetch)
     {
-        var sql = $" SELECT * FROM Jobs WHERE  IsCompleted = 0 limit {numberOfJobsToFetch};";
+        var sql = $" SELECT * FROM Jobs WHERE  IsCompleted = 'False' limit {numberOfJobsToFetch};";
         var results = await _connection.QueryAsync<JobRecord>(sql);
         return results?.ToList() ?? new List<JobRecord>();
     }

@@ -10,7 +10,7 @@ namespace Domain.Common.Entities
         public DateTime? ModifiedDate { get; set; }
         public bool IsDelted { get; set; }
         public DateTime? DeletedDate { get; set; }
-        public IList<BulkEntityValidation> Validations { get; set; } // this should be the readonly
+        public IList<BulkEntityValidation> Validations { get; set; } = new List<BulkEntityValidation>(); // this should be the readonly
 
         public bool Delete()
         {

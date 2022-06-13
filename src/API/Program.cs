@@ -1,7 +1,15 @@
 ﻿using API;
-using API.Extensions;
-using DocumentFormat.OpenXml.Bibliography;
+using Application.ESanjeevani.InstituteMember;
+using Application.Job;
+using Domain.Common.interfaces;
+using Domain.Common.interfaces.FileHelper;
+using Domain.ESanjeevani.InstituteMember.Entities;
+using Domain.ESanjeevani.InstituteMember.Validations;
+using FluentValidation;
 using Infrastructure.Common;
+using Infrastructure.Common.Jobs;
+using Infrastructure.ESanjeevani.InstituteMember;
+using Infrastructure.ESanjeevani.InstituteMember.FileHelper;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +22,6 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .Enrich.With<LogFilePathEnricher>()
     .WriteTo.Map(LogFilePathEnricher.LogFilePathPropertyName,
         (logFilePath, wt) => wt.File($"{logFilePath}"), sinkMapCountLimit: 1));
-#pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
 
 var allowAllOriginsPolicy = "_allowAllOriginsPolicy";
 builder.Services.AddCors(options =>
@@ -36,10 +43,25 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<LogFilePathEnricher>();
-//builder.Services.AddQueueManager();
-builder.Services.AddBackgroundServices();
 
 builder.Services.AddCommonInfrastructure();
+builder.Services.AddESanjeevaniInstituteMemberInfrastructure();
+
+builder.Services.AddESanjeevaniInstituteMemberApplication();
+builder.Services.Scan(scan => scan
+    // We start out with all types in the assembly of ITransientService
+    .FromExecutingAssembly()
+    .AddClasses(classes => classes.AssignableTo(typeof(IFileHelper<>)))
+    .AsImplementedInterfaces()
+    .WithScopedLifetime()
+    
+);
+    /*.AddClasses(classes => classes.AssignableTo(typeof(IMapper<,>)))
+    .AsImplementedInterfaces()
+    .WithScopedLifetime()*/
+builder.Services.AddScoped(typeof(IMapper<InstituteMemberExcelEntity, InstituteMemberBulkEntity>),
+    typeof(ExcelEntityToBulkEntity));
+builder.Services.AddScoped<IValidator<InstituteMemberBulkEntity>, InstituteMemberBulkEntityValidator>();
 
 var app = builder.Build();
 
