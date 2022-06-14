@@ -279,8 +279,11 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
 
         public async Task<int> AddBulkEntityValidations(IEnumerable<BulkEntityValidation> validations)
         {
-            var entity = new BulkEntityValidation();
-            var sql = $@" INSERT INTO BulkEntityValidations (
+            int retunvalue = 0;
+            await DeleteBulkEntityValidations(validations);
+            foreach (var entity in validations)
+            {
+                var sql = $@" INSERT INTO BulkEntityValidations (
                                      '{nameof(entity.BulkEntityId)}'
                                     ,'{nameof(entity.ErrorMessage)}'
                                     ,'{nameof(entity.PropertyName)}'
@@ -291,16 +294,21 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
                                 ,'{entity.PropertyName}'
                           );";
 
-            return await _connection.ExecuteAsync(sql);
+                await _connection.ExecuteAsync(sql);
+                retunvalue++;
+            }
+
+            return retunvalue;
         }
 
         public async Task<int> DeleteBulkEntityValidations(IEnumerable<BulkEntityValidation> validations)
-        {
-            var commaSeperatedIds = string.Join(",",validations.Select(t => t.Id.ToString()));
+        { 
+            // need to fix the issue of validationId
+            var commaSeperatedIds = string.Join(",",validations.Select(t => t.BulkEntityId.ToString()));
             var entity = new BulkEntityValidation();
             var sql = $@" UPDATE BulkEntityValidations SET {nameof(entity.IsDeleted)} = '1'
                          ,{nameof(entity.DeletedDate)} =  CURRENT_TIMESTAMP
-                         WHERE {nameof(entity.Id)} IN (commaSeperatedIds);";
+                         WHERE {nameof(entity.BulkEntityId)} IN ({commaSeperatedIds});";
 
             return await _connection.ExecuteAsync(sql);
         }

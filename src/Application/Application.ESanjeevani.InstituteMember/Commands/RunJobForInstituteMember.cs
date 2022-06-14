@@ -32,12 +32,15 @@ public class RunJobForInstituteMemberHandler : IRequestHandler<RunJobForInstitut
         IRequest<InstituteMemberCommandResponse> command;
         if (jobData != null)
         {
-            command = jobData.Status switch
+            command = (jobData.Status switch
             {
                 InstituteMemberTaskStatus.FileReceived => new AddRecordsFromFile(request.JobRecord),
                 InstituteMemberTaskStatus.DataReceived => new ValidateData(request.JobRecord),
-                InstituteMemberTaskStatus.ApprovedToImport => new AddRecordsFromFile(request.JobRecord)
-            };
+                InstituteMemberTaskStatus.ApprovedToImport => null,
+                InstituteMemberTaskStatus.DataValidated => null,
+                InstituteMemberTaskStatus.Completed => null,
+                _ => null
+            })!;
             if (command != null && _mediator != null)
             {
                 await _mediator.Send(command);

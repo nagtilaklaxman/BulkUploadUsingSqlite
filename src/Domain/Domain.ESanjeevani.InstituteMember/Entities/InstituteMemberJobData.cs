@@ -8,6 +8,7 @@ namespace Domain.ESanjeevani.InstituteMember.Entities
         public int RecordsReceived { get; set; }
         public int RecordsValid { get; set; }
         public int RecordsInvalid { get; set; }
+        public int RecordsDeleted { get; set; }
         public InstituteMemberTaskStatus  Status { get; set; }
         public string Message { get; set; }
     }

@@ -65,6 +65,9 @@ public class ValidateDataHandler : IRequestHandler<ValidateData,InstituteMemberC
         _logger.LogInformation($"Valid records / Total records : {validRecordsCount} / {records.Count}");
         
         jobData.Status = InstituteMemberTaskStatus.DataValidated;
+        jobData.RecordsValid = validRecordsCount;
+        jobData.RecordsInvalid = records.Count - validRecordsCount;
+        jobData.Message = $"Valid records {validRecordsCount} out of {records.Count}";
         job.SetJobData(jobData);
         var updateJobData = new UpdateJob()
         {

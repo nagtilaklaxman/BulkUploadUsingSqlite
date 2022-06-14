@@ -1,6 +1,9 @@
 ﻿using API;
+using API.Hubs;
+using API.Services;
 using Application.ESanjeevani.InstituteMember;
 using Application.Job;
+using Domain.Common.Entities;
 using Domain.Common.interfaces;
 using Domain.Common.interfaces.FileHelper;
 using Domain.ESanjeevani.InstituteMember.Entities;
@@ -41,7 +44,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddSignalR();
 builder.Services.AddTransient<LogFilePathEnricher>();
 
 builder.Services.AddCommonInfrastructure();
@@ -62,9 +65,11 @@ builder.Services.Scan(scan => scan
 builder.Services.AddScoped(typeof(IMapper<InstituteMemberExcelEntity, InstituteMemberBulkEntity>),
     typeof(ExcelEntityToBulkEntity));
 builder.Services.AddScoped<IValidator<InstituteMemberBulkEntity>, InstituteMemberBulkEntityValidator>();
+builder.Services.AddScoped<INotificationService<JobRecord>, JobNotificationService>();
 
 var app = builder.Build();
 
+//app.UseResponseCompression();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -75,6 +80,7 @@ app.UseCors(allowAllOriginsPolicy);
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<JobHub>("/JobHub");
 
 app.Run();
 

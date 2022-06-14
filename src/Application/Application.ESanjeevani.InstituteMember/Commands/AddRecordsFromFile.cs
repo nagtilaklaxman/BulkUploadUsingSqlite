@@ -46,7 +46,11 @@ public class AddRecordsFromFileHandler : IRequestHandler<AddRecordsFromFile,Inst
         _logger.LogInformation($"Add records after add : {_unitOfWork.BulkEntities.Connectionstring}");
         
         jobData.Status = InstituteMemberTaskStatus.DataReceived;
+        jobData.RecordsReceived = records.Count;
+        jobData.Message = $"Received {records.Count} records";
+        
         job.SetJobData(jobData);
+        
         var updateJobData = new UpdateJob()
         {
             JobRecord = job

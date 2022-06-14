@@ -1,0 +1,118 @@
+@using BlazorWebAssemblyClient.models
+@using Microsoft.AspNetCore.SignalR.Client
+@inject IConfiguration Configuration
+<div class="card mb-2">
+     <div class="card-header">
+          Job Progress
+     </div>
+     <div class="card-body">
+          <div class="row">
+                <table class="table table-responsive table-bordered">
+                    <thead>
+                    <tr>
+                        <td>
+                            Session Id
+                        </td>
+                        <td>
+                            Module Name
+                        </td>
+                        <td>
+                            Status
+                        </td>
+                        <td>
+                            Message
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if (_jobProgressModels.Count > 0)
+                    {
+                        @foreach (var progress in _jobProgressModels)
+                        {
+                            <tr>
+                                <td>
+                                    @progress.SessionId
+                                </td>
+                                <td>
+                                    @progress.ModuleName
+                                </td>
+                                <td>
+                                    @progress.Status
+                                </td>
+                                <td>
+                                    @progress.Message
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center text-warning">
+                                No Data to show.
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+          </div>
+     </div>
+</div>
+
+@code {
+    private IList<JobProgressModel> _jobProgressModels = new List<JobProgressModel>();
+    private string _sessionId = "146c1991-83e1-4884-b139-4d7890c2d6d3";
+    private HubConnection? hubConnection;
+    private string? userInput;
+    private string? messageInput;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var apiURL = Configuration.GetSection("API")["Url"];
+        var hubUrl = apiURL?.Replace("api/", "");
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl($"{hubUrl}JobHub")
+            .Build();
+
+        hubConnection.On<JobProgressModel>("ReceiveMessage", (progressModel) =>
+        {
+            var found = false;
+            foreach (var model in _jobProgressModels)
+            {
+                if (model.SessionId == progressModel.SessionId)
+                {
+                    model.Status = progressModel.Status;
+                    model.Message = progressModel.Message;
+                    found = true;
+                }
+            }
+            if (!found)
+            {
+                _jobProgressModels.Insert(0,progressModel);
+            }
+            StateHasChanged();
+        });
+
+        await hubConnection.StartAsync();
+        await Send();
+    }
+
+    private async Task Send()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("Subscribe", _sessionId);
+        }
+    }
+
+    public bool IsConnected =>
+        hubConnection?.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}
