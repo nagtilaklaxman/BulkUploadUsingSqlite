@@ -91,4 +91,12 @@ public class JobRepository : IJobRepository
         var results = await _connection.QueryAsync<JobRecord>(sql);
         return results?.ToList() ?? new List<JobRecord>();
     }
+
+    public async Task<JobRecord> GetJobBySessionId(string sessionId)
+    {
+        var entity = new JobRecord();
+        var sql = $@" SELECT * FROM Jobs WHERE {nameof(entity.SessionId)} = '{sessionId}';";
+        var result = await _connection.QueryFirstOrDefaultAsync<JobRecord>(sql);
+        return result;
+    }
 }

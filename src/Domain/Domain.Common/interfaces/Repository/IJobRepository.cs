@@ -6,4 +6,5 @@ public interface IJobRepository : IRepository<JobRecord>
 {
     public Task<IReadOnlyList<JobRecord>> GetPendingJobs(int numberOfJobsToFetch);
     public Task<IReadOnlyList<JobRecord>> GetAllPendingJobs();
+    public Task<JobRecord> GetJobBySessionId(string sessionId);
 }

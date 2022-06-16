@@ -2,7 +2,6 @@ using API.Hubs;
 using Domain.Common.Entities;
 using Domain.Common.interfaces;
 using Domain.ESanjeevani.InstituteMember.Entities;
-using MediatR;
 using Microsoft.AspNetCore.SignalR;
 
 namespace API.Services;
@@ -34,4 +33,6 @@ public class JobProgressModel
     public string Status { get; set; }
     public string Message { get; set; }
     public string ModuleName { get; set; }
+    public bool CanEdit { get; set; }
+    public bool CanView { get; set; }
 }

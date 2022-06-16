@@ -12,7 +12,7 @@ public static class DependencyInjection
         
         services.AddBackgroundService(options =>
         {
-            options.Interval = TimeSpan.FromMinutes(5);
+            options.Interval = TimeSpan.FromMinutes(1);
         });
         
 
