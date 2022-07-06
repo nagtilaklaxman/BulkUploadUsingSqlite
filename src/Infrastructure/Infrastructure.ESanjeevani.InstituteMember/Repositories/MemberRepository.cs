@@ -1,4 +1,5 @@
-﻿using Domain.ESanjeevani.InstituteMember.Entities;
+﻿using Domain.Common.Entities;
+using Domain.ESanjeevani.InstituteMember.Entities;
 using Domain.ESanjeevani.InstituteMember.Repositories;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
@@ -21,6 +22,11 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
         }
 
         public Task<int> DeleteRangeAsync(IList<int> ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedEntity<Member>> GetPagedDataAsync(int page, int records)
         {
             throw new NotImplementedException();
         }
@@ -64,6 +70,11 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
         }
 
         public Task<int> DeleteRangeAsync(IList<int> ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedEntity<Member>> GetPagedDataAsync(int page, int records)
         {
             throw new NotImplementedException();
         }

@@ -78,6 +78,11 @@ public class JobRepository : IJobRepository
         throw new NotImplementedException();
     }
 
+    public async Task<PagedEntity<JobRecord>> GetPagedDataAsync(int page, int records)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<IReadOnlyList<JobRecord>> GetPendingJobs(int numberOfJobsToFetch)
     {
         var sql = $" SELECT * FROM Jobs WHERE  IsCompleted = 'False' limit {numberOfJobsToFetch};";

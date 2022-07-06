@@ -56,5 +56,13 @@ namespace Domain.Common.Entities
             return new BulkError(data[0], data[1]);
         }
     }
+
+    public class PagedEntity<T> where T : class
+    {
+        public int Page { get; set; }
+        public int Records { get; set; }
+        public int Total { get; set; }
+        public IList<T> Data { get; set; }
+    }
 }
 

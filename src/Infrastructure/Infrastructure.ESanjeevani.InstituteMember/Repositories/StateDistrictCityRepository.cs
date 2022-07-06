@@ -2,6 +2,7 @@ using System.Data;
 using Domain.ESanjeevani.InstituteMember.Entities;
 using Domain.ESanjeevani.InstituteMember.Repository;
 using Dapper;
+using Domain.Common.Entities;
 
 namespace Infrastructure.ESanjeevani.InstituteMember.Repositories;
 
@@ -133,6 +134,11 @@ public class StateDistrictCityRepository : IStateDistrictCityRepository
     }
 
     public  Task<int> DeleteRangeAsync(IList<int> ids)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<PagedEntity<StateDistrictCity>> GetPagedDataAsync(int page, int records)
     {
         throw new NotImplementedException();
     }

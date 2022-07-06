@@ -133,6 +133,36 @@ namespace Infrastructure.ESanjeevani.InstituteMember.Repositories
             return await _connection.ExecuteAsync(sql);
         }
 
+        public async Task<PagedEntity<InstituteMemberBulkEntity>> GetPagedDataAsync(int page, int records)
+        { 
+            var entity = new InstituteMemberBulkEntity();
+           var sql =$@" 
+                            SELECT * FROM (
+                                SELECT *
+           FROM InstituteMemberBulkEntity limit {records} OFFSET {(page-1)*records} ) AS t 
+           INNER JOIN BulkEntityValidations AS b ON t.Id = b.BulkEntityId AND b.IsDeleted = 0;
+           ";
+           
+           var results = await _connection.QueryAsync<InstituteMemberBulkEntity, BulkEntityValidation, InstituteMemberBulkEntity>(sql, 
+               (bulkEntity, validation) => {
+                   bulkEntity.Validations.Add(validation);
+                       return bulkEntity;
+                   }, 
+                   splitOn: "BulkEntityId" );
+           var data = results?.ToList() ?? new List<InstituteMemberBulkEntity>();
+
+           sql = "SELECT count(*) FROM  InstituteMemberBulkEntity;";
+           var totalCount  = await _connection.ExecuteScalarAsync<int>(sql);
+
+           return new PagedEntity<InstituteMemberBulkEntity>()
+           {
+               Page = page,
+               Records = data.Count,
+               Data = data,
+               Total = totalCount
+           };
+        }
+
         public async Task<IReadOnlyList<InstituteMemberBulkEntity>> GetAllAsync()
         {
             var entity = new InstituteMemberBulkEntity();
